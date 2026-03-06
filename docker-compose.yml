@@ -1,0 +1,32 @@
+services:
+  astro:
+    build: .
+    restart: unless-stopped
+    environment:
+      - API_KEY=${API_KEY}
+      - DB_PATH=/app/data/meal-planner.db
+    volumes:
+      - app-data:/app/data
+    ports:
+      - "4321:4321"
+
+  mcp-server:
+    build: ./mcp-server
+    restart: unless-stopped
+    environment:
+      - API_BASE=http://astro:4321
+      - API_KEY=${API_KEY}
+    depends_on:
+      - astro
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    depends_on:
+      - astro
+
+volumes:
+  app-data:
