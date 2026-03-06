@@ -26,19 +26,20 @@ function pct(actual: number, target: number | undefined): number {
 }
 
 function barColor(actual: number, target: number | undefined): string {
-  if (!target) return 'bg-gray-300';
+  if (!target) return 'bg-slate-300';
   const ratio = actual / target;
   if (ratio > 1.1) return 'bg-red-400';
-  if (ratio > 0.9) return 'bg-emerald-500';
-  return 'bg-emerald-400';
+  if (ratio > 0.9) return 'bg-primary';
+  return 'bg-primary/70';
 }
 </script>
 
 <template>
-  <div class="rounded-lg bg-gray-50 p-3 space-y-2">
+  <div class="bg-primary/5 rounded-xl border border-primary/20 p-4 space-y-2.5">
+    <p class="text-[10px] font-black text-primary uppercase text-center mb-1">Total Diario</p>
     <div v-for="f in fields" :key="f.label" class="flex items-center gap-2">
-      <span class="text-xs text-gray-500 w-10 shrink-0">{{ f.label }}</span>
-      <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+      <span class="text-xs text-slate-500 w-10 shrink-0 font-bold">{{ f.label }}</span>
+      <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
         <div
           v-if="f.target"
           class="h-full rounded-full transition-all"
@@ -46,9 +47,9 @@ function barColor(actual: number, target: number | undefined): string {
           :style="{ width: pct(f.actual, f.target) + '%' }"
         ></div>
       </div>
-      <span class="text-xs text-gray-600 w-24 text-right shrink-0">
+      <span class="text-xs font-bold w-24 text-right shrink-0">
         {{ Math.round(f.actual) }}{{ f.unit || '' }}
-        <span v-if="f.target" class="text-gray-400">/ {{ f.target }}{{ f.unit || '' }}</span>
+        <span v-if="f.target" class="text-slate-400 font-medium">/ {{ f.target }}{{ f.unit || '' }}</span>
       </span>
     </div>
   </div>

@@ -26,22 +26,27 @@ function toggleTag(tag: string) {
 
 <template>
   <div class="space-y-3">
-    <input
-      v-model="search"
-      @input="onFilter"
-      type="search"
-      placeholder="Buscar recetas..."
-      class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-emerald-400 transition-colors"
-    />
+    <div class="flex items-stretch rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-center pl-3 text-slate-400">
+        <span class="material-symbols-outlined text-xl">search</span>
+      </div>
+      <input
+        v-model="search"
+        @input="onFilter"
+        type="search"
+        placeholder="Buscar recetas..."
+        class="flex-1 border-none bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-slate-400"
+      />
+    </div>
     <div class="flex gap-2 flex-wrap">
       <button
         v-for="tag in sortedTags"
         :key="tag"
         @click="toggleTag(tag)"
-        class="text-xs px-3 py-1 rounded-full border transition-colors"
+        class="text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider transition-colors"
         :class="selectedTag === tag
-          ? 'bg-emerald-600 text-white border-emerald-600'
-          : 'bg-white text-gray-600 border-gray-200 hover:border-emerald-300'"
+          ? 'bg-primary text-white'
+          : 'bg-primary/10 text-primary hover:bg-primary/20'"
       >
         {{ tag }}
       </button>

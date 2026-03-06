@@ -1,16 +1,16 @@
 import type { APIRoute } from 'astro';
 import { db, schema } from '../../../../db/index';
 import { eq } from 'drizzle-orm';
+import { json, errorResponse } from '../../../lib/api';
 
 export const GET: APIRoute = async ({ url }) => {
   const week = url.searchParams.get('week');
   if (!week || !/^\d{4}-\d{2}-\d{2}$/.test(week)) {
-    return new Response(JSON.stringify({ error: 'week param required (YYYY-MM-DD)' }), { status: 400 });
+    return errorResponse('week param required (YYYY-MM-DD)', 400);
   }
 
   let plan = db.select().from(schema.mealPlans).where(eq(schema.mealPlans.weekStart, week)).get();
 
-  // Auto-create plan if it doesn't exist
   if (!plan) {
     plan = db.insert(schema.mealPlans).values({ weekStart: week }).returning().get();
   }
@@ -36,5 +36,5 @@ export const GET: APIRoute = async ({ url }) => {
     .where(eq(schema.mealEntries.mealPlanId, plan.id))
     .all();
 
-  return new Response(JSON.stringify({ ...plan, entries }));
+  return json({ ...plan, entries });
 };

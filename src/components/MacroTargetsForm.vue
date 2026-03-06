@@ -43,9 +43,10 @@ async function save(type: string) {
 }
 
 const LABELS: Record<string, string> = { training: 'Entrenamiento', rest: 'Descanso' };
+const ICONS: Record<string, string> = { training: 'fitness_center', rest: 'weekend' };
 const FIELDS = [
-  { key: 'calories' as const, label: 'Calorías', unit: 'kcal' },
-  { key: 'protein' as const, label: 'Proteína', unit: 'g' },
+  { key: 'calories' as const, label: 'Calorias', unit: 'kcal' },
+  { key: 'protein' as const, label: 'Proteina', unit: 'g' },
   { key: 'carbs' as const, label: 'Hidratos', unit: 'g' },
   { key: 'fat' as const, label: 'Grasa', unit: 'g' },
 ];
@@ -56,32 +57,35 @@ const FIELDS = [
     <div
       v-for="type in ['training', 'rest']"
       :key="type"
-      class="rounded-lg border border-gray-200 p-4"
+      class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm"
     >
-      <h3 class="font-semibold mb-3">{{ LABELS[type] }}</h3>
+      <h3 class="font-extrabold text-lg mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary">{{ ICONS[type] }}</span>
+        {{ LABELS[type] }}
+      </h3>
 
       <div v-if="profiles[type]" class="space-y-3">
         <div v-for="field in FIELDS" :key="field.key" class="flex items-center gap-3">
-          <label class="text-sm text-gray-500 w-20 shrink-0">{{ field.label }}</label>
+          <label class="text-sm font-bold text-slate-500 w-20 shrink-0">{{ field.label }}</label>
           <input
             v-model.number="profiles[type][field.key]"
             type="number"
             min="0"
-            class="flex-1 rounded-lg border border-gray-200 px-3 py-1.5 text-sm outline-none focus:border-emerald-400 transition-colors"
+            class="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-bold outline-none focus:border-primary transition-colors"
           />
-          <span class="text-xs text-gray-400 w-8">{{ field.unit }}</span>
+          <span class="text-xs text-slate-400 font-bold w-8">{{ field.unit }}</span>
         </div>
 
         <button
           @click="save(type)"
           :disabled="saving === type"
-          class="w-full mt-2 rounded-lg bg-emerald-600 text-white py-2 text-sm font-medium hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+          class="w-full mt-3 rounded-xl bg-primary text-white py-2.5 text-sm font-bold shadow-lg shadow-primary/20 hover:brightness-110 disabled:opacity-50 transition-all"
         >
           {{ saving === type ? 'Guardando...' : saved === type ? 'Guardado' : 'Guardar' }}
         </button>
       </div>
 
-      <div v-else class="text-sm text-gray-400 py-4 text-center">Cargando...</div>
+      <div v-else class="text-sm text-slate-400 py-4 text-center">Cargando...</div>
     </div>
   </div>
 </template>

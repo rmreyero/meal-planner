@@ -55,7 +55,7 @@ function onFilter(f: { search: string; tag: string }) {
       v-for="recipe in filtered"
       :key="recipe.id"
       :href="`/recipes/${recipe.slug}`"
-      class="block rounded-lg border border-gray-200 overflow-hidden hover:border-emerald-300 transition-colors"
+      class="block bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:border-primary/50 transition-all"
     >
       <img
         v-if="recipe.photoPath"
@@ -67,26 +67,26 @@ function onFilter(f: { search: string; tag: string }) {
       <div class="p-4">
         <div class="flex justify-between items-start">
           <div class="min-w-0">
-            <h2 class="font-semibold text-lg">{{ recipe.name }}</h2>
-            <div class="flex gap-2 mt-1 flex-wrap">
+            <h2 class="font-bold text-base">{{ recipe.name }}</h2>
+            <div class="flex gap-1.5 mt-2 flex-wrap">
               <span
                 v-for="tag in recipe.tags"
                 :key="tag"
-                class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full"
+                class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold uppercase tracking-wider"
               >{{ tag }}</span>
             </div>
           </div>
           <div class="flex items-start gap-1 shrink-0 ml-3">
-            <div v-if="recipe.baseCalories" class="text-right text-sm text-gray-500">
-              <div class="font-medium text-gray-900">{{ Math.round(recipe.baseCalories) }} kcal</div>
-              <div>{{ recipe.baseProtein }}g prot</div>
+            <div v-if="recipe.baseCalories" class="text-right">
+              <div class="font-extrabold text-sm">{{ Math.round(recipe.baseCalories) }} <span class="text-[10px] text-slate-500 font-bold">kcal</span></div>
+              <div class="text-xs text-primary font-bold">{{ recipe.baseProtein }}g prot</div>
             </div>
             <FavoriteButton :recipe-id="recipe.id" :initial="!!recipe.isFavorite" />
           </div>
         </div>
       </div>
     </a>
-    <p v-if="filtered.length === 0" class="text-center text-gray-400 py-8">
+    <p v-if="filtered.length === 0" class="text-center text-slate-400 py-8 text-sm">
       No se encontraron recetas
     </p>
   </div>

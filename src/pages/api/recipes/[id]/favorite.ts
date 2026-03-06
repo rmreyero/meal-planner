@@ -1,11 +1,12 @@
 import type { APIRoute } from 'astro';
 import { db, schema } from '../../../../../db/index';
 import { eq } from 'drizzle-orm';
+import { json, errorResponse } from '../../../../lib/api';
 
 export const PATCH: APIRoute = async ({ params }) => {
   const id = Number(params.id);
   if (!Number.isInteger(id)) {
-    return new Response(JSON.stringify({ error: 'Invalid id' }), { status: 400 });
+    return errorResponse('Invalid id', 400);
   }
 
   const recipe = db.select({ isFavorite: schema.recipes.isFavorite })
@@ -14,7 +15,7 @@ export const PATCH: APIRoute = async ({ params }) => {
     .get();
 
   if (!recipe) {
-    return new Response(JSON.stringify({ error: 'Not found' }), { status: 404 });
+    return errorResponse('Not found', 404);
   }
 
   const newValue = !recipe.isFavorite;
@@ -23,5 +24,5 @@ export const PATCH: APIRoute = async ({ params }) => {
     .where(eq(schema.recipes.id, id))
     .run();
 
-  return new Response(JSON.stringify({ isFavorite: newValue }));
+  return json({ isFavorite: newValue });
 };

@@ -67,13 +67,13 @@
 
 ## Phase 7: Deploy & Polish
 
-- [ ] Dockerfile for Astro app (multi-stage build)
-- [ ] Dockerfile for MCP server
-- [ ] docker-compose.yml: Astro + MCP + cloudflared
-- [ ] Environment variables: API key, OAuth config, domain names
-- [ ] Mobile UX polish (touch targets, scroll behavior, responsive)
-- [ ] Error handling for API endpoints
-- [ ] `pnpm run seed` script in package.json
+- [x] Dockerfile for Astro app (multi-stage build)
+- [x] Dockerfile for MCP server
+- [x] docker-compose.yml: Astro + MCP + cloudflared
+- [x] Environment variables: API key, tunnel token (.env.example)
+- [x] Mobile UX polish (design system overhaul: Manrope, Material Symbols, primary red, responsive nav)
+- [x] Error handling for API endpoints (shared helpers in src/lib/api.ts)
+- [x] `pnpm run seed` script in package.json
 
 ## Notes
 

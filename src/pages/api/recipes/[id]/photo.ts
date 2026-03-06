@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { db, schema } from '../../../../../db/index';
 import { eq } from 'drizzle-orm';
 import { requireAuth } from '../../../../lib/auth';
+import { json, errorResponse } from '../../../../lib/api';
 
 const PHOTOS_DIR = join(process.cwd(), 'data', 'photos');
 
@@ -13,7 +14,7 @@ export const POST: APIRoute = async ({ params, request }) => {
 
   const id = Number(params.id);
   if (!Number.isInteger(id)) {
-    return new Response(JSON.stringify({ error: 'Invalid id' }), { status: 400 });
+    return errorResponse('Invalid id', 400);
   }
 
   const recipe = db.select({ id: schema.recipes.id, slug: schema.recipes.slug })
@@ -22,17 +23,16 @@ export const POST: APIRoute = async ({ params, request }) => {
     .get();
 
   if (!recipe) {
-    return new Response(JSON.stringify({ error: 'Not found' }), { status: 404 });
+    return errorResponse('Not found', 404);
   }
 
   const formData = await request.formData();
   const file = formData.get('photo');
 
   if (!file || !(file instanceof File)) {
-    return new Response(JSON.stringify({ error: 'photo file is required' }), { status: 400 });
+    return errorResponse('photo file is required', 400);
   }
 
-  // Keep original extension
   const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
   const filename = `${recipe.slug}.${ext}`;
 
@@ -45,5 +45,5 @@ export const POST: APIRoute = async ({ params, request }) => {
     .where(eq(schema.recipes.id, id))
     .run();
 
-  return new Response(JSON.stringify({ photoPath: filename }), { status: 201 });
+  return json({ photoPath: filename }, 201);
 };

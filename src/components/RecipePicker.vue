@@ -29,33 +29,40 @@ const filtered = computed(() => {
 
 <template>
   <div class="fixed inset-0 bg-black/40 z-50 flex items-end sm:items-center justify-center" @click.self="emit('cancel')">
-    <div class="bg-white rounded-t-xl sm:rounded-xl w-full sm:max-w-md max-h-[70vh] flex flex-col">
-      <div class="p-4 border-b border-gray-100">
+    <div class="bg-white rounded-t-2xl sm:rounded-xl w-full sm:max-w-md max-h-[70vh] flex flex-col shadow-xl">
+      <div class="p-4 border-b border-slate-100">
         <div class="flex justify-between items-center mb-3">
-          <h3 class="font-semibold">Elegir receta</h3>
-          <button @click="emit('cancel')" class="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
+          <h3 class="font-extrabold text-lg">Elegir receta</h3>
+          <button @click="emit('cancel')" class="flex size-8 items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
+            <span class="material-symbols-outlined text-slate-400">close</span>
+          </button>
         </div>
-        <input
-          v-model="search"
-          type="search"
-          placeholder="Buscar..."
-          class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-emerald-400"
-          autofocus
-        />
+        <div class="flex items-stretch rounded-xl bg-bg border border-slate-200 overflow-hidden">
+          <div class="flex items-center justify-center pl-3 text-slate-400">
+            <span class="material-symbols-outlined text-xl">search</span>
+          </div>
+          <input
+            v-model="search"
+            type="search"
+            placeholder="Buscar..."
+            class="flex-1 border-none bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-slate-400"
+            autofocus
+          />
+        </div>
       </div>
       <div class="overflow-y-auto flex-1">
         <button
           v-for="recipe in filtered"
           :key="recipe.id"
           @click="emit('pick', recipe)"
-          class="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-50 flex justify-between items-center"
+          class="w-full text-left px-4 py-3 hover:bg-primary/5 border-b border-slate-50 flex justify-between items-center transition-colors"
         >
-          <span class="text-sm">{{ recipe.name }}</span>
-          <span v-if="recipe.baseCalories" class="text-xs text-gray-400 shrink-0 ml-2">
+          <span class="text-sm font-medium">{{ recipe.name }}</span>
+          <span v-if="recipe.baseCalories" class="text-xs text-slate-400 shrink-0 ml-2 font-bold">
             {{ Math.round(recipe.baseCalories) }} kcal
           </span>
         </button>
-        <p v-if="filtered.length === 0" class="text-center text-gray-400 py-6 text-sm">
+        <p v-if="filtered.length === 0" class="text-center text-slate-400 py-6 text-sm">
           Sin resultados
         </p>
       </div>
