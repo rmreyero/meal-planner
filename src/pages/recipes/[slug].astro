@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { db, schema } from '../../../db/index';
+import { eq } from 'drizzle-orm';
+import type { IngredientGroup } from '../../../db/schema';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/');
+}
+
+const recipe = db.select().from(schema.recipes).where(eq(schema.recipes.slug, slug)).get();
+
+if (!recipe) {
+  return Astro.redirect('/');
+}
+
+const ingredients = recipe.ingredients as IngredientGroup[];
+const instructions = recipe.instructions as string[];
+const notes = recipe.notes as string[] | null;
+---
+
+<Layout title={recipe.name}>
+  <a href="/" class="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">&larr; Recetas</a>
+
+  <h1 class="text-2xl font-bold mb-2">{recipe.name}</h1>
+
+  <div class="flex gap-3 text-sm text-gray-500 mb-6">
+    {recipe.totalTime && <span>{recipe.totalTime}</span>}
+    {recipe.difficulty && <span>{recipe.difficulty}</span>}
+    {recipe.servings && <span>{recipe.servings}</span>}
+  </div>
+
+  {recipe.baseCalories && (
+    <div class="grid grid-cols-4 gap-2 mb-6 text-center">
+      <div class="bg-gray-50 rounded-lg p-2">
+        <div class="text-lg font-semibold">{Math.round(recipe.baseCalories)}</div>
+        <div class="text-xs text-gray-500">kcal</div>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-2">
+        <div class="text-lg font-semibold">{recipe.baseProtein}g</div>
+        <div class="text-xs text-gray-500">proteína</div>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-2">
+        <div class="text-lg font-semibold">{recipe.baseCarbs}g</div>
+        <div class="text-xs text-gray-500">HC</div>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-2">
+        <div class="text-lg font-semibold">{recipe.baseFat}g</div>
+        <div class="text-xs text-gray-500">grasa</div>
+      </div>
+    </div>
+  )}
+
+  <section class="mb-6">
+    <h2 class="font-semibold text-lg mb-2">Ingredientes</h2>
+    {ingredients.map((group) => (
+      <div class="mb-3">
+        {group.group && <h3 class="text-sm font-medium text-gray-500 mb-1">{group.group}</h3>}
+        <ul class="space-y-1">
+          {group.items.map((item) => (
+            <li class="text-sm pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-gray-400">{item}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+
+  <section class="mb-6">
+    <h2 class="font-semibold text-lg mb-2">Preparación</h2>
+    <ol class="space-y-3">
+      {instructions.map((step, i) => (
+        step.startsWith('[') ? (
+          <li class="font-medium text-emerald-700 mt-4">{step.replace(/[\[\]]/g, '')}</li>
+        ) : (
+          <li class="text-sm pl-6 relative">
+            <span class="absolute left-0 text-emerald-600 font-medium">{i + 1}.</span>
+            {step}
+          </li>
+        )
+      ))}
+    </ol>
+  </section>
+
+  {notes && notes.length > 0 && (
+    <section class="mb-6">
+      <h2 class="font-semibold text-lg mb-2">Notas</h2>
+      <ul class="space-y-1">
+        {notes.map((note) => (
+          <li class="text-sm text-gray-600 pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-gray-400">{note}</li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {recipe.sourceUrl && (
+    <a href={recipe.sourceUrl} target="_blank" rel="noopener" class="text-sm text-emerald-600 hover:underline">
+      Fuente: {recipe.sourceName || recipe.sourceUrl}
+    </a>
+  )}
+</Layout>

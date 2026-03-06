@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { db, schema } from '../../db/index';
+
+const recipes = db.select().from(schema.recipes).all();
+---
+
+<Layout title="Recetas">
+  <h1 class="text-2xl font-bold mb-6">Recetas</h1>
+
+  <div class="space-y-3">
+    {recipes.map((recipe) => (
+      <a href={`/recipes/${recipe.slug}`} class="block rounded-lg border border-gray-200 p-4 hover:border-emerald-300 transition-colors">
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="font-semibold text-lg">{recipe.name}</h2>
+            <div class="flex gap-2 mt-1 flex-wrap">
+              {(recipe.tags as string[] | null)?.map((tag) => (
+                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{tag}</span>
+              ))}
+            </div>
+          </div>
+          {recipe.baseCalories && (
+            <div class="text-right text-sm text-gray-500 shrink-0 ml-3">
+              <div class="font-medium text-gray-900">{Math.round(recipe.baseCalories)} kcal</div>
+              <div>{recipe.baseProtein}g prot</div>
+            </div>
+          )}
+        </div>
+      </a>
+    ))}
+  </div>
+</Layout>
