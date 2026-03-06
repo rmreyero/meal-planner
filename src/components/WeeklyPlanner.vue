@@ -67,11 +67,17 @@ const editingLabel = ref<number | null>(null);
 const macroTargets = ref<Record<string, MacroTarget>>({});
 const trainingDays = ref<Record<number, boolean>>({});
 
+// Local date formatting (avoid UTC shift from toISOString)
+function formatLocalDate(d: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
 // Week navigation
 function shiftWeek(delta: number) {
   const d = new Date(weekStart.value + 'T00:00:00');
   d.setDate(d.getDate() + 7 * delta);
-  weekStart.value = d.toISOString().split('T')[0];
+  weekStart.value = formatLocalDate(d);
 }
 
 const weekDisplay = computed(() => {
