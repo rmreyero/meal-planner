@@ -1,8 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import WeeklyPlanner from '../components/WeeklyPlanner.vue';
+import { db, schema } from '../../db/index';
+
+// Get current week's Monday
+const now = new Date();
+const day = now.getDay();
+const diff = now.getDate() - day + (day === 0 ? -6 : 1);
+const monday = new Date(now);
+monday.setDate(diff);
+const initialWeek = monday.toISOString().split('T')[0];
+
+// Recipe list for picker
+const recipes = db.select({
+  id: schema.recipes.id,
+  name: schema.recipes.name,
+  slug: schema.recipes.slug,
+  baseCalories: schema.recipes.baseCalories,
+  baseProtein: schema.recipes.baseProtein,
+}).from(schema.recipes).all();
 ---
 
 <Layout title="Planner">
-  <h1 class="text-2xl font-bold mb-6">Planner Semanal</h1>
-  <p class="text-gray-500">Próximamente</p>
+  <h1 class="text-2xl font-bold mb-4">Planner Semanal</h1>
+  <WeeklyPlanner client:load initialWeek={initialWeek} recipes={recipes} />
 </Layout>

@@ -32,7 +32,7 @@
 - [x] Phase 1: Foundation (Astro init, DB schema, seed, layout, basic pages)
 - [x] Phase 2: Recipe Catalog (filters, favorites, macro calculator)
 - [x] Phase 3: Recipe API (write endpoints, auth)
-- [ ] Phase 4: Meal Planner
+- [x] Phase 4: Meal Planner
 - [ ] Phase 5: Macro Targets
 - [ ] Phase 6: MCP Server
 - [ ] Phase 7: Deploy & Polish

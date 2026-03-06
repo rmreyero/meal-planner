@@ -32,18 +32,18 @@
 - [x] API key auth middleware for write endpoints
 - [x] Auto-generate slug from recipe name on create
 
-## Phase 4: Meal Planner
+## Phase 4: Meal Planner [DONE]
 
-- [ ] `WeeklyPlanner.vue` — 7-day tab navigation (L M X J V S D)
-- [ ] Smart slot auto-labeling (1->Cena, 2->Comida+Cena, 3->D+C+C, 4->D+C+M+C)
-- [ ] Editable slot labels
-- [ ] Per-slot adjustable portion weight (reuses MacroCalculator logic)
-- [ ] Recipe picker for adding meals to slots
-- [ ] `POST /api/meal-entries` — add entry
-- [ ] `PUT /api/meal-entries/:id` — update entry
-- [ ] `DELETE /api/meal-entries/:id` — remove entry
-- [ ] `GET /api/meal-plans?week=YYYY-MM-DD` — get week plan
-- [ ] Week navigation (prev/next)
+- [x] `WeeklyPlanner.vue` — 7-day tab navigation (L M X J V S D)
+- [x] Smart slot auto-labeling (1->Cena, 2->Comida+Cena, 3->D+C+C, 4->D+C+M+C)
+- [x] Editable slot labels
+- [x] Per-slot adjustable portion weight (reuses MacroCalculator logic)
+- [x] Recipe picker for adding meals to slots (`RecipePicker.vue`)
+- [x] `POST /api/meal-entries` — add entry
+- [x] `PUT /api/meal-entries/:id` — update entry
+- [x] `DELETE /api/meal-entries/:id` — remove entry
+- [x] `GET /api/meal-plans?week=YYYY-MM-DD` — get week plan (auto-creates)
+- [x] Week navigation (prev/next)
 
 ## Phase 5: Macro Targets
 
