@@ -54,16 +54,16 @@
 - [x] `DailyMacroSummary.vue` — progress bars actual vs target
 - [x] Daily macro summary integrated in WeeklyPlanner (replaces simple totals)
 
-## Phase 6: MCP Server
+## Phase 6: MCP Server [DONE]
 
-- [ ] MCP server with HTTP/SSE transport (separate Node.js process)
-- [ ] OAuth 2.0 auth middleware
-- [ ] Tool: `add_recipe` (calls POST /api/recipes)
-- [ ] Tool: `list_recipes` (calls GET /api/recipes)
-- [ ] Tool: `get_recipe` (calls GET /api/recipes/:id)
-- [ ] Tool: `update_recipe` (calls PUT /api/recipes/:id)
-- [ ] JSON Schema for each tool's `inputSchema`
-- [ ] Test locally with Claude Code (stdio transport for dev)
+- [x] MCP server with stdio transport (separate Node.js process)
+- [ ] OAuth 2.0 auth middleware (deferred to Phase 7/deploy)
+- [x] Tool: `add_recipe` (calls POST /api/recipes)
+- [x] Tool: `list_recipes` (calls GET /api/recipes)
+- [x] Tool: `get_recipe` (calls GET /api/recipes/:id)
+- [x] Tool: `update_recipe` (calls PUT /api/recipes/:id)
+- [x] JSON Schema for each tool's `inputSchema` (auto-generated from Zod)
+- [x] Test locally with Claude Code (stdio transport)
 
 ## Phase 7: Deploy & Polish
 

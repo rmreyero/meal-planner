@@ -34,5 +34,5 @@
 - [x] Phase 3: Recipe API (write endpoints, auth)
 - [x] Phase 4: Meal Planner
 - [x] Phase 5: Macro Targets
-- [ ] Phase 6: MCP Server
+- [x] Phase 6: MCP Server
 - [ ] Phase 7: Deploy & Polish
