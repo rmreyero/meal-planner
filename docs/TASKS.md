@@ -22,15 +22,15 @@
 - [x] Integrate MacroCalculator into recipe detail page
 - [x] Recipe photo display (card thumbnail + detail full image)
 
-## Phase 3: Recipe API (write endpoints)
+## Phase 3: Recipe API (write endpoints) [DONE]
 
-- [ ] `GET /api/recipes` — list with optional filters (?tag, ?search)
-- [ ] `GET /api/recipes/:id` — detail
-- [ ] `POST /api/recipes` — create (auth required)
-- [ ] `PUT /api/recipes/:id` — update (auth required)
-- [ ] `POST /api/recipes/:id/photo` — upload photo (multipart, auth required)
-- [ ] API key auth middleware for write endpoints
-- [ ] Auto-generate slug from recipe name on create
+- [x] `GET /api/recipes` — list with optional filters (?tag, ?search)
+- [x] `GET /api/recipes/:id` — detail
+- [x] `POST /api/recipes` — create (auth required)
+- [x] `PUT /api/recipes/:id` — update (auth required)
+- [x] `POST /api/recipes/:id/photo` — upload photo (multipart, auth required)
+- [x] API key auth middleware for write endpoints
+- [x] Auto-generate slug from recipe name on create
 
 ## Phase 4: Meal Planner
 
