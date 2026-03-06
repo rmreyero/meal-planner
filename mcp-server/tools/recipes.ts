@@ -64,6 +64,7 @@ export function registerTools(server: McpServer, apiBase: string, apiKey: string
       baseProtein: z.number().optional().describe('Protein in grams per base portion'),
       baseCarbs: z.number().optional().describe('Carbs in grams per base portion'),
       baseFat: z.number().optional().describe('Fat in grams per base portion'),
+      photoUrl: z.string().optional().describe('URL of a photo to download for the recipe'),
     },
   }, async (input) => {
     const { data, ok } = await apiCall(apiBase, apiKey, '/api/recipes', {

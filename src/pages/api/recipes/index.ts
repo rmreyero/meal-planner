@@ -1,9 +1,10 @@
 import type { APIRoute } from 'astro';
 import { db, schema } from '../../../../db/index';
-import { like, and, sql } from 'drizzle-orm';
+import { like, and, sql, eq } from 'drizzle-orm';
 import { requireAuth } from '../../../lib/auth';
 import { slugify } from '../../../lib/slug';
 import { json, errorResponse, parseBody } from '../../../lib/api';
+import { downloadPhoto } from '../../../lib/photo';
 
 export const GET: APIRoute = async ({ url }) => {
   const tag = url.searchParams.get('tag');
@@ -32,7 +33,7 @@ export const POST: APIRoute = async ({ request }) => {
   const body = await parseBody(request);
   if (!body) return errorResponse('Invalid JSON body', 400);
 
-  const { name, ...rest } = body;
+  const { name, photoUrl, ...rest } = body;
 
   if (!name || typeof name !== 'string') {
     return errorResponse('name is required', 400);
@@ -53,6 +54,17 @@ export const POST: APIRoute = async ({ request }) => {
     .values({ ...rest, name, slug } as typeof schema.recipes.$inferInsert)
     .returning()
     .get();
+
+  if (photoUrl && typeof photoUrl === 'string') {
+    const filename = await downloadPhoto(photoUrl, slug);
+    if (filename) {
+      db.update(schema.recipes)
+        .set({ photoPath: filename })
+        .where(eq(schema.recipes.id, result.id))
+        .run();
+      result.photoPath = filename;
+    }
+  }
 
   return json(result, 201);
 };
