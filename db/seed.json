@@ -1,0 +1,677 @@
+[
+  {
+    "name": "Guisantes con Ternera y Laoganma",
+    "category": "verduras",
+    "servings": "1 ración",
+    "prepTime": "2 min",
+    "cookTime": "5 min",
+    "totalTime": "7 min",
+    "difficulty": "Fácil",
+    "ingredients": [
+      {
+        "items": [
+          "50g carne de ternera picada",
+          "200g guisantes congelados",
+          "1 chorrito vino blanco",
+          "1 cucharada laoganma (salsa chile china)",
+          "1 chorrito salsa de soja",
+          "1 chorrito vinagre negro chino",
+          "1 chorrito kétchup",
+          "Sal",
+          "Pimienta negra recién molida",
+          "1 yema de huevo"
+        ]
+      }
+    ],
+    "instructions": [
+      "En sartén precalentada sobre fuego medio-alto, aplasta la carne picada contra la superficie y deja que se dore 1 minuto. Despégala y continúa cocinándola 1 minuto más",
+      "Añade los guisantes congelados, mezcla, y añade el vino blanco. Mezcla",
+      "Añade el laoganma, la salsa de soja, el vinagre negro chino y el kétchup. Mezcla y saltea 1 minuto sobre fuego alto",
+      "Corrige sazonado con sal y pimienta negra. Sirve inmediatamente y finalízalo con una yema de huevo"
+    ],
+    "notes": [
+      "Los guisantes van directo del congelador, no descongelar",
+      "La yema de huevo al final es opcional pero añade cremosidad",
+      "Laoganma es clave para el sabor, buscar en supermercados asiáticos",
+      "Se puede escalar para batch cooking multiplicando cantidades"
+    ],
+    "tags": ["asiática", "rápida", "proteína", "congelados", "favorita", "picante"],
+    "sourceUrl": "https://diegodoal.com/recetas/platos-15-mins-1",
+    "sourceName": "Diego Doal - Platos 15 mins",
+    "basePortionWeight": 280,
+    "baseCalories": 360,
+    "baseProtein": 25,
+    "baseCarbs": 25,
+    "baseFat": 12.5
+  },
+  {
+    "name": "Judías Verdes Salteadas Estilo Chino",
+    "category": "verduras",
+    "servings": "4-5 raciones",
+    "prepTime": "5 min",
+    "cookTime": "15 min",
+    "totalTime": "20 min",
+    "difficulty": "Fácil",
+    "ingredients": [
+      {
+        "items": [
+          "1kg judías verdes",
+          "6-8 dientes de ajo picados",
+          "3-4 cucharadas aceite (para saltear)",
+          "4 cucharadas salsa de soja",
+          "1 cucharada vinagre arroz",
+          "Jengibre rallado (trozo 3-4cm)",
+          "1 cucharadita aceite sésamo",
+          "2-3 cucharadas semillas sésamo tostadas"
+        ]
+      }
+    ],
+    "instructions": [
+      "Blanquear judías 2-3 min en agua hirviendo con sal, escurrir y reservar",
+      "Wok/sartén bien caliente con aceite",
+      "Saltear ajo picado 30 seg sin quemar",
+      "Añadir judías, saltear 3-4 min a fuego fuerte hasta que cojan color",
+      "Agregar salsa de soja + vinagre arroz + jengibre",
+      "Apagar fuego, añadir aceite sésamo + semillas sésamo"
+    ],
+    "notes": [
+      "Hacer en 2 tandas si wok no es muy grande (judías necesitan espacio)",
+      "Conservación: 4-5 días en nevera",
+      "Se recalienta bien en sartén o microondas",
+      "Combina perfecto con: pollo, salmón, tofu, huevos"
+    ],
+    "tags": ["asiática", "batchcooking", "vegetal", "fácil", "favorita"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 200,
+    "baseCalories": 150,
+    "baseProtein": 5,
+    "baseCarbs": 12,
+    "baseFat": 9.5
+  },
+  {
+    "name": "Mapo Tofu",
+    "category": "verduras",
+    "servings": "4 raciones",
+    "prepTime": "5 min",
+    "cookTime": "15 min",
+    "totalTime": "20 min",
+    "difficulty": "Media",
+    "ingredients": [
+      {
+        "items": [
+          "450g tofu blando cortado en cubos de 1cm",
+          "300g carne de cerdo picada",
+          "2 cucharadas pimienta Sichuan (dividida)",
+          "3 chiles de árbol secos",
+          "30g aceite vegetal",
+          "6 dientes de ajo rallados",
+          "1 cucharada jengibre rallado",
+          "1 manojo cebolletas (parte blanca picada, parte verde reservada para decorar)",
+          "2 cucharadas pasta de chile fermentado (doubanjiang)",
+          "2 cucharadas vino Shaoxing",
+          "1 cucharada salsa de soja oscura",
+          "60ml caldo de pollo bajo en sodio",
+          "15g aceite de chile tostado",
+          "1 cucharadita maicena",
+          "2 cucharaditas agua fría",
+          "MSG (al gusto)"
+        ]
+      }
+    ],
+    "instructions": [
+      "Tostar la mitad de la pimienta Sichuan en wok seco hasta que humee ligeramente. Moler en mortero y reservar",
+      "Calentar resto pimienta Sichuan + chiles de árbol + aceite vegetal en wok a fuego medio-alto 1.5 min hasta que chisporrotee. Retirar pimientas y chiles con colador, dejar aceite",
+      "Mezclar maicena + agua fría en bol pequeño",
+      "Hervir agua en cacerola, añadir tofu, cocinar 1 min. Escurrir con cuidado",
+      "Calentar aceite en wok a fuego alto hasta que humee. Añadir cerdo, cocinar removiendo constantemente 1-2 min",
+      "Añadir ajo, jengibre y parte blanca de cebolletas picada, cocinar 15 seg hasta aromático",
+      "Añadir pasta de chile, vino Shaoxing, salsa de soja, caldo y MSG. Llevar a ebullición",
+      "Verter mezcla de maicena, cocinar 30 seg hasta espesar",
+      "Añadir tofu con cuidado, integrar sin romper mucho",
+      "Incorporar aceite de chile, cocinar 30 seg más",
+      "Servir inmediatamente espolvoreando pimienta Sichuan molida y parte verde de cebolletas picada"
+    ],
+    "notes": [
+      "Tofu blando (no sedoso firme) - más delicado, manejar con cuidado",
+      "Hervir tofu 1 min (paso 4) es opcional: calienta el tofu, elimina exceso de agua y reduce riesgo de rotura",
+      "Pasta de chile fermentado (doubanjiang) y pimienta Sichuan se encuentran en tiendas asiáticas o online",
+      "Conservación: 2-3 días en nevera (el tofu pierde textura)",
+      "Servir con arroz blanco"
+    ],
+    "tags": ["asiática", "picante", "wok", "sichuan", "málà"],
+    "sourceUrl": "https://www.seriouseats.com/real-deal-mapo-dofu-tofu-chinese-sichuan-recipe",
+    "sourceName": "Serious Eats - J. Kenji López-Alt",
+    "basePortionWeight": 285,
+    "baseCalories": 327,
+    "baseProtein": 26,
+    "baseCarbs": 8,
+    "baseFat": 21
+  },
+  {
+    "name": "Ensalada Pollo Sous Vide con Cottage y Pesto",
+    "category": "verduras",
+    "servings": "1 ración",
+    "prepTime": "10 min",
+    "cookTime": "0 min",
+    "totalTime": "10 min",
+    "difficulty": "Muy fácil",
+    "ingredients": [
+      {
+        "group": "Proteína",
+        "items": [
+          "300g pollo sous vide",
+          "150g queso cottage"
+        ]
+      },
+      {
+        "group": "Verduras",
+        "items": [
+          "100g espinacas frescas",
+          "150g tomate (1 tomate grande o 8-10 cherry)"
+        ]
+      },
+      {
+        "group": "Aliño",
+        "items": [
+          "10ml AOVE (1 cucharada sopera)",
+          "10g pesto (1 cucharadita)",
+          "Jugo de 1/4 limón",
+          "Sal y pimienta negra al gusto"
+        ]
+      }
+    ],
+    "instructions": [
+      "Lavar espinacas y escurrir bien. Cortar tomate en rodajas o cuartos",
+      "En bol grande, poner espinacas como base y añadir tomate encima",
+      "Cortar pollo sous vide en tiras o cubos, distribuir sobre verduras. Añadir cottage en el centro o por encima",
+      "En bol pequeño, mezclar AOVE + pesto + jugo limón + sal + pimienta. Verter sobre la ensalada y mezclar justo antes de comer"
+    ],
+    "notes": [
+      "El pollo sous vide ya viene cocido, solo cortar",
+      "Si el cottage está muy denso, añade 1 cucharada agua para que se mezcle mejor",
+      "El pesto aporta sabor intenso, ajusta cantidad a tu gusto",
+      "Variaciones: añadir semillas (girasol, calabaza), frutos secos (nueces), aguacate",
+      "Más HC: añade 50g maíz (+55 kcal, +10g HC) o 100g garbanzos cocidos (+120 kcal, +15g HC)"
+    ],
+    "tags": ["proteína", "rápida", "ensalada", "sincocinar", "cottage", "pesto", "favorita"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 720,
+    "baseCalories": 670,
+    "baseProtein": 99,
+    "baseCarbs": 15.5,
+    "baseFat": 23
+  },
+  {
+    "name": "Garbanzos con Curry",
+    "category": "verduras",
+    "servings": "3 raciones",
+    "prepTime": "10 min",
+    "cookTime": "45 min",
+    "totalTime": "55 min",
+    "difficulty": "Fácil",
+    "ingredients": [
+      {
+        "items": [
+          "1 bote garbanzos escurridos (400g peso escurrido)",
+          "1 pimiento rojo",
+          "1 pimiento verde italiano",
+          "1 cebolla blanca",
+          "1 zanahoria grande",
+          "20ml aceite de oliva",
+          "2 cucharadas curry en polvo",
+          "150g aceitunas verdes",
+          "6 dientes de ajo",
+          "Sal al gusto"
+        ]
+      }
+    ],
+    "instructions": [
+      "Picar todas las verduras en dados: cebolla, pimientos, zanahoria, ajos",
+      "En sartén/cazuela, calentar aceite a fuego medio",
+      "Sofreír verduras hasta que ablanden (10-12 min)",
+      "Añadir curry en polvo, tostar 1 min removiendo",
+      "Añadir garbanzos escurridos y aceitunas",
+      "Cocinar a fuego bajo 30-35 min, removiendo ocasionalmente",
+      "Ajustar sal al gusto"
+    ],
+    "notes": [
+      "Las aceitunas aportan sal, probar antes de añadir más",
+      "Los garbanzos absorben sabor durante cocción lenta",
+      "Conservación: 4-5 días en nevera",
+      "Se puede congelar: 2 meses",
+      "Ideal como guarnición o plato principal con arroz",
+      "Para más proteína: añadir pollo desmenuzado o atún"
+    ],
+    "tags": ["vegetariano", "batchcooking", "legumbres", "curry", "favorita"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 330,
+    "baseCalories": 380,
+    "baseProtein": 14,
+    "baseCarbs": 42,
+    "baseFat": 16
+  },
+  {
+    "name": "Hulkburguesas",
+    "category": "proteinas",
+    "servings": "4 hamburguesas",
+    "prepTime": "10 min",
+    "cookTime": "15 min",
+    "totalTime": "25 min",
+    "difficulty": "Fácil",
+    "ingredients": [
+      {
+        "items": [
+          "300g pollo picado",
+          "200g espinacas frescas",
+          "1 huevo",
+          "2-3 cucharadas pan rallado",
+          "1 diente de ajo picado",
+          "Sal y pimienta al gusto"
+        ]
+      }
+    ],
+    "instructions": [
+      "Cortar el pollo en trozos medianos",
+      "Meter todo en el robot de cocina (pollo, espinacas frescas, huevo, ajo, pan rallado, sal y pimienta) y triturar hasta obtener mezcla homogénea",
+      "Formar 4 hamburguesas del mismo tamaño",
+      "Cocinar en sartén con un poco de aceite 5-6 min por lado hasta doradas y cocinadas por dentro"
+    ],
+    "notes": [
+      "El robot hace todo el trabajo, súper rápido",
+      "Conservación nevera: 3-4 días",
+      "NO congelar: cambia mucho el sabor",
+      "Ideales para batch cooking (hacer para varios días en nevera)",
+      "Combina con: ensalada, arroz, patata, pan integral"
+    ],
+    "tags": ["proteína", "batchcooking", "saludable", "favorita"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 130,
+    "baseCalories": 145,
+    "baseProtein": 24,
+    "baseCarbs": 6,
+    "baseFat": 3
+  },
+  {
+    "name": "Lasaña Proteica",
+    "category": "platos",
+    "servings": "8-10 raciones",
+    "prepTime": "30 min",
+    "cookTime": "2h30",
+    "totalTime": "3h",
+    "difficulty": "Media",
+    "ingredients": [
+      {
+        "group": "Ragú",
+        "items": [
+          "400g carne de ternera picada",
+          "400g carne de cerdo picada",
+          "1 cebolla blanca grande",
+          "2 zanahorias grandes",
+          "1 diente de ajo picado",
+          "Pasta de tomate concentrado (al gusto)",
+          "1 chorrito salsa Worcestershire",
+          "1 chorro generoso vino tinto",
+          "3 latas (1.2kg) tomate triturado",
+          "Agua (cantidad necesaria)",
+          "Sal y pimienta"
+        ]
+      },
+      {
+        "group": "Montaje",
+        "items": [
+          "200g placas de lasaña (18 placas cuadradas)",
+          "400g queso cottage",
+          "1 huevo",
+          "Leche semidesnatada (cantidad necesaria)",
+          "125g mozzarella light (1 bola)",
+          "120g parmesano rallado",
+          "Sal"
+        ]
+      }
+    ],
+    "instructions": [
+      "[Preparación del ragú]",
+      "Dorar bien las carnes picadas (ternera + cerdo) en cazuela grande",
+      "Añadir cebolla, zanahoria y ajo picados, sofreír hasta que ablanden",
+      "Sazonar con sal y pimienta",
+      "Añadir pasta de tomate, integrar bien",
+      "Añadir chorrito de salsa Worcestershire",
+      "Desglasar con vino tinto, dejar reducir alcohol",
+      "Añadir tomate triturado y agua, llevar a ebullición",
+      "Bajar fuego y cocer a fuego lento 1h30-2h hasta ragú espeso",
+      "[Preparación bechamel proteica]",
+      "Batir cottage + huevo + sal",
+      "Añadir leche semi poco a poco hasta conseguir textura cremosa tipo bechamel líquida",
+      "[Montaje (bandeja 32x21cm)]",
+      "Capa fina de ragú en el fondo",
+      "6 placas de pasta",
+      "Ragú generoso + mitad bechamel + mitad mozzarella desmenuzada",
+      "6 placas de pasta",
+      "Ragú generoso + mitad bechamel + resto mozzarella",
+      "6 placas de pasta",
+      "Ragú final + parmesano rallado por encima",
+      "[Horneado]",
+      "Precalentar horno a 180°C",
+      "Tapar con papel aluminio",
+      "Hornear 30 min tapada",
+      "Destapar y hornear 10-15 min más hasta gratinar el parmesano",
+      "Dejar reposar 10 min antes de cortar"
+    ],
+    "notes": [
+      "El ragú mejora si lo haces el día anterior",
+      "Ragú sobrante se puede congelar (3 meses)",
+      "Lasaña horneada aguanta 4-5 días en nevera",
+      "Se puede hornear directamente en recipiente de cristal con tapa hermética para guardar",
+      "Ideal para batch cooking de toda la semana"
+    ],
+    "tags": ["proteína", "batchcooking", "italiana", "completa", "favorita", "congelable"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 530,
+    "baseCalories": 529,
+    "baseProtein": 40,
+    "baseCarbs": 32,
+    "baseFat": 24
+  },
+  {
+    "name": "Lentejas con Chorizo Criollo",
+    "category": "platos",
+    "servings": "5 raciones",
+    "prepTime": "20 min",
+    "cookTime": "55 min-1h10",
+    "totalTime": "1h15-1h30",
+    "difficulty": "Fácil",
+    "ingredients": [
+      {
+        "items": [
+          "330g lentejas secas",
+          "1/2 pimiento rojo (100g)",
+          "1 cebolla (150g)",
+          "1 zanahoria grande (150g)",
+          "2 dientes de ajo enteros",
+          "2 chorizos criollos (180g)",
+          "1 cucharada pasta de tomate Mutti (15g)",
+          "2 cucharadas aceite (26g)",
+          "1 cucharada curry en polvo",
+          "1 litro caldo de pollo",
+          "Sal al gusto"
+        ]
+      }
+    ],
+    "instructions": [
+      "Picar cebolla, zanahoria y pimiento en dados pequeños. Pelar ajos y dejar enteros",
+      "Cortar chorizos criollos en trozos",
+      "En olla/cazuela, calentar aceite a fuego medio",
+      "Sofreír cebolla, zanahoria, pimiento y ajos enteros hasta que ablanden (5-7 min)",
+      "Añadir chorizo en trozos, cocinar 2-3 min hasta que suelte grasa",
+      "Añadir pasta de tomate y curry en polvo, integrar bien",
+      "Añadir lentejas secas, mezclar",
+      "Añadir caldo de pollo, llevar a ebullición",
+      "Bajar fuego, tapar y cocinar 45 min-1h hasta que lentejas estén tiernas",
+      "Ajustar sal (el chorizo y caldo ya salan). Opcional: retirar ajos enteros antes de servir"
+    ],
+    "notes": [
+      "El chorizo criollo ya aporta mucha grasa y sabor, cuidado con la sal adicional",
+      "Las lentejas absorben líquido, si quedan muy secas añade más caldo o agua durante cocción",
+      "Conservación: 4-5 días en nevera",
+      "Se puede congelar: 2-3 meses (textura puede cambiar ligeramente)",
+      "Combina con: arroz blanco, pan, ensalada verde",
+      "El curry aporta sabor único pero puedes sustituir por pimentón dulce o comino"
+    ],
+    "tags": ["proteína", "batchcooking", "legumbres", "completa", "favorita", "congelable"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 320,
+    "baseCalories": 448,
+    "baseProtein": 30,
+    "baseCarbs": 48,
+    "baseFat": 17
+  },
+  {
+    "name": "Chili con Carne",
+    "category": "platos",
+    "servings": "8 raciones",
+    "prepTime": "20-25 min",
+    "cookTime": "2h30",
+    "totalTime": "~3h",
+    "difficulty": "Media",
+    "ingredients": [
+      {
+        "group": "Chiles",
+        "items": [
+          "1 chile ancho seco",
+          "1 chile guajillo seco",
+          "2 chiles chipotle secos"
+        ]
+      },
+      {
+        "group": "Base",
+        "items": [
+          "750g aguja de ternera picada",
+          "1 litro caldo de pollo",
+          "1 cebolla grande",
+          "1 pimiento rojo",
+          "1 zanahoria",
+          "30ml aceite de oliva"
+        ]
+      },
+      {
+        "group": "Especias",
+        "items": [
+          "1 cucharada chile en polvo",
+          "1 cucharada comino en polvo",
+          "1 cucharada pimentón dulce",
+          "1 cucharada cacao en polvo",
+          "1 cucharada cayena en polvo",
+          "2 cucharadas orégano seco"
+        ]
+      },
+      {
+        "group": "Tomate y frijoles",
+        "items": [
+          "400g tomate triturado",
+          "400g tomate troceado",
+          "600g frijoles enlatados (kidney beans o pintos)"
+        ]
+      },
+      {
+        "group": "Ajuste final",
+        "items": [
+          "1 cucharada azúcar moreno",
+          "1 cucharada vinagre blanco",
+          "1 cucharada salsa inglesa (Worcestershire)",
+          "1 cucharada salsa picante",
+          "Sal y pimienta negra"
+        ]
+      }
+    ],
+    "instructions": [
+      "Tostar chiles secos en sartén sobre fuego medio-alto, moviéndolos frecuentemente, hasta fragantes (5 min)",
+      "Limpiar chiles quitando tallos y semillas. Triturar en procesador con 700ml del caldo de pollo",
+      "Picar cebolla, pimiento rojo y zanahoria en dados pequeños",
+      "En cacerola precalentada a fuego alto, marcar carne picada hasta bien dorada. Sacar y reservar",
+      "En la misma cacerola, añadir aceite y sofreír cebolla, pimiento, zanahoria, sal y pimienta 5-6 min hasta translúcido",
+      "Añadir todas las especias (cacao, chile, comino, pimentón, cayena, orégano). Tostar 15 seg",
+      "Añadir 300ml caldo restante y mezclar",
+      "Devolver carne a cacerola junto con tomate triturado, tomate troceado y mezcla de chiles. Sazonar ligeramente con sal (dejar soso)",
+      "Llevar a ebullición, bajar fuego a bajo y cocinar tapado 1h30. Descartar grasa que sube dejando un poco",
+      "Añadir frijoles escurridos (reservar líquido), azúcar moreno, vinagre, salsa inglesa, salsa picante y líquido de frijoles",
+      "Llevar a ebullición y reducir destapado 45 min hasta consistencia deseada",
+      "Probar y corregir sazonado. Reposar tapado 10 min fuera del fuego antes de servir"
+    ],
+    "notes": [
+      "Chiles secos se encuentran en tiendas mexicanas o online",
+      "La carne se marca primero para sellar y crear fondo de sabor",
+      "El cacao aporta profundidad sin sabor a chocolate",
+      "Descartar exceso de grasa durante cocción mejora textura",
+      "Conservación: 4-5 días en nevera",
+      "Congelación: 3 meses perfectamente",
+      "Servir con: arroz blanco, nachos, queso rallado, crema agria, cilantro, lima",
+      "El reposo final 10 min mejora sabores y textura"
+    ],
+    "tags": ["proteína", "batchcooking", "mexicana", "picante", "completa", "favorita", "congelable"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 360,
+    "baseCalories": 345,
+    "baseProtein": 25,
+    "baseCarbs": 21,
+    "baseFat": 18
+  },
+  {
+    "name": "Curry de Pavo Japonés",
+    "category": "platos",
+    "servings": "5 raciones",
+    "prepTime": "10 min",
+    "cookTime": "35-40 min",
+    "totalTime": "50 min",
+    "difficulty": "Fácil",
+    "ingredients": [
+      {
+        "items": [
+          "600g pavo (contramuslo o pechuga, en trozos)",
+          "400g zanahoria (3-4 unidades, en rodajas gruesas)",
+          "1 cebolla (~150g, en medias lunas)",
+          "200g setas shiitake (laminadas)",
+          "110g S&B Golden Curry Medium Hot (1/2 caja)",
+          "800ml agua",
+          "30ml aceite (2 cucharadas, para sofreír)"
+        ]
+      }
+    ],
+    "instructions": [
+      "Cortar pavo en trozos medianos, zanahoria en rodajas gruesas, cebolla en medias lunas, shiitake laminadas",
+      "En olla/cazuela grande, calentar aceite a fuego medio-alto",
+      "Marcar pavo hasta dorado por fuera (5 min). Sacar y reservar",
+      "En la misma olla, sofreír cebolla 3-4 min hasta translúcida",
+      "Añadir zanahoria y shiitake, sofreír 2-3 min",
+      "Devolver el pavo a la olla",
+      "Añadir 800ml agua, llevar a ebullición",
+      "Bajar fuego, tapar y cocinar 20-25 min hasta que zanahoria esté tierna",
+      "Apagar fuego, añadir los bloques de curry (110g), remover hasta disolver completamente",
+      "Volver a encender fuego bajo, cocinar 5 min más removiendo hasta espesar",
+      "Servir con arroz blanco"
+    ],
+    "notes": [
+      "El curry se añade con el fuego apagado para que se disuelva mejor sin grumos",
+      "La zanahoria en rodajas gruesas aguanta mejor la cocción larga",
+      "Conservación: 4-5 días en nevera (mejora de sabor al día siguiente)",
+      "Se puede congelar: 2-3 meses (sin arroz)",
+      "Servir con arroz blanco cocido (200g por ración recomendado)",
+      "Variante con patata (días entreno): Añade 300g patata en el paso 5 junto con la zanahoria. Aumenta agua a 900ml",
+      "Variaciones: sustituir pavo por pollo",
+      "Vega-friendly: sabor suave, zanahoria dulce, sin picante excesivo"
+    ],
+    "tags": ["asiática", "japonesa", "batchcooking", "proteína", "completa", "favorita", "congelable", "vegafriendly"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 430,
+    "baseCalories": 398,
+    "baseProtein": 30,
+    "baseCarbs": 28,
+    "baseFat": 15
+  },
+  {
+    "name": "Overnight Oats Proteicos",
+    "category": "desayunos",
+    "servings": "1 ración",
+    "prepTime": "5 min",
+    "cookTime": null,
+    "totalTime": "8h5min",
+    "difficulty": "Muy fácil",
+    "ingredients": [
+      {
+        "items": [
+          "50g avena en copos",
+          "200ml leche semidesnatada",
+          "50g yogur natural",
+          "35g proteína en polvo (sabor a elegir)",
+          "150g fresas frescas",
+          "10g semillas de chía",
+          "Opcional: canela, vainilla, edulcorante"
+        ]
+      }
+    ],
+    "instructions": [
+      "En un táper o frasco de cristal, mezclar avena + leche semi + yogur + proteína en polvo hasta integrar bien",
+      "Añadir semillas de chía, remover",
+      "Tapar y meter en nevera mínimo 8 horas (mejor toda la noche)",
+      "Por la mañana, añadir fresas cortadas por encima (o mezclar si prefieres)",
+      "Opcional: añadir canela, cacao en polvo, o frutos secos al gusto"
+    ],
+    "notes": [
+      "Se prepara la noche anterior, listo al despertar",
+      "La avena y chía absorben líquido, si está muy espeso añade más leche al servir",
+      "Fresas pueden ser congeladas (descongelan durante la noche)",
+      "Conservación: 2-3 días preparado en nevera",
+      "Variaciones de fruta: plátano, arándanos, mango, piña",
+      "Variaciones proteína: chocolate, vainilla, cookies & cream",
+      "Para más saciedad: añade 1 cucharada mantequilla cacahuete (+95 kcal, 4g P, 3g HC, 8g G)",
+      "Para más HC: añade 1 plátano (+105 kcal, 1g P, 27g HC, 0g G)"
+    ],
+    "tags": ["desayuno", "proteína", "sincocinar", "overnight", "batchcooking", "favorita"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 465,
+    "baseCalories": 516,
+    "baseProtein": 50,
+    "baseCarbs": 57,
+    "baseFat": 10
+  },
+  {
+    "name": "Brownie",
+    "category": "postres",
+    "servings": "18-20 brownies (~30g cada uno)",
+    "prepTime": "10 min",
+    "cookTime": "20 min",
+    "totalTime": "30 min",
+    "difficulty": "Fácil",
+    "ingredients": [
+      {
+        "items": [
+          "200g chocolate negro para postres (52% cacao, Mercadona)",
+          "90g mantequilla",
+          "5 huevos (M)",
+          "80g azúcar",
+          "85g harina",
+          "1 cucharada esencia de vainilla",
+          "1 cucharadita levadura Royal (polvo de hornear)",
+          "Sal (una pizca)",
+          "20 anacardos (~20g) u otros frutos secos",
+          "30g pepitas de chocolate"
+        ]
+      }
+    ],
+    "instructions": [
+      "Mezclar chocolate y mantequilla en un bol. Derretir en microondas y mezclar bien hasta integrado",
+      "En otro bol, batir los 5 huevos y el azúcar hasta espumoso",
+      "Añadir la mezcla de chocolate y mantequilla, integrar bien",
+      "Añadir harina, levadura Royal y sal. Mezclar sin grumos (ideal tamizar la harina)",
+      "Añadir anacardos partidos y pepitas de chocolate, mezclar todo",
+      "Verter en molde 20x25cm engrasado y enharinado (o con papel horno)",
+      "Hornear a 180°C durante 20 minutos",
+      "Dejar enfriar antes de cortar en porciones de ~30g"
+    ],
+    "notes": [
+      "No sobrehornear: el centro debe quedar ligeramente húmedo para textura fudgy",
+      "Se puede sustituir anacardos por nueces, almendras o avellanas",
+      "Conservación: 3-4 días en recipiente hermético a temperatura ambiente",
+      "Congelación: 2-3 meses (cortar en porciones individuales antes)",
+      "Para más intensidad chocolate: usar chocolate 70-85% cacao",
+      "El brownie está listo cuando al pinchar con palillo sale con migas húmedas (no líquido)",
+      "VARIANTE PROTEICA FIT: Usa 60g mantequilla + 30g yogur griego 0%, 40g eritritol, 50g proteína chocolate (resta 20g harina), chocolate 85% cacao, 6 huevos"
+    ],
+    "tags": ["postre", "capricho", "batchcooking", "congelable"],
+    "sourceUrl": null,
+    "sourceName": null,
+    "basePortionWeight": 30,
+    "baseCalories": 163,
+    "baseProtein": 2.9,
+    "baseCarbs": 13,
+    "baseFat": 10
+  }
+]
