@@ -12,15 +12,15 @@
 - [x] Recipe detail page — slug URLs, ingredients, steps, notes, macros
 - [x] Placeholder pages for Planner and Settings
 
-## Phase 2: Recipe Catalog
+## Phase 2: Recipe Catalog [DONE]
 
-- [ ] `RecipeFilters.vue` — tag chips + text search (Vue island)
-- [ ] Wire filters to recipe list (client-side filtering or API query params)
-- [ ] `FavoriteButton.vue` — heart toggle with API call
-- [ ] `PATCH /api/recipes/:id/favorite` endpoint
-- [ ] `MacroCalculator.vue` — portion weight input/slider + live macro recalculation
-- [ ] Integrate MacroCalculator into recipe detail page
-- [ ] Recipe photo display (card thumbnail + detail full image)
+- [x] `RecipeFilters.vue` — tag chips + text search (Vue island)
+- [x] Wire filters to recipe list (client-side filtering via `RecipeList.vue`)
+- [x] `FavoriteButton.vue` — heart toggle with API call
+- [x] `PATCH /api/recipes/:id/favorite` endpoint
+- [x] `MacroCalculator.vue` — portion weight input/slider + live macro recalculation
+- [x] Integrate MacroCalculator into recipe detail page
+- [x] Recipe photo display (card thumbnail + detail full image)
 
 ## Phase 3: Recipe API (write endpoints)
 

@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import MacroCalculator from '../../components/MacroCalculator.vue';
+import FavoriteButton from '../../components/FavoriteButton.vue';
 import { db, schema } from '../../../db/index';
 import { eq } from 'drizzle-orm';
 import type { IngredientGroup } from '../../../db/schema';
@@ -19,12 +21,16 @@ if (!recipe) {
 const ingredients = recipe.ingredients as IngredientGroup[];
 const instructions = recipe.instructions as string[];
 const notes = recipe.notes as string[] | null;
+const hasMacros = recipe.baseCalories && recipe.basePortionWeight;
 ---
 
 <Layout title={recipe.name}>
   <a href="/" class="text-sm text-gray-400 hover:text-gray-600 mb-4 inline-block">&larr; Recetas</a>
 
-  <h1 class="text-2xl font-bold mb-2">{recipe.name}</h1>
+  <div class="flex items-start justify-between mb-2">
+    <h1 class="text-2xl font-bold">{recipe.name}</h1>
+    <FavoriteButton client:load recipeId={recipe.id} initial={!!recipe.isFavorite} />
+  </div>
 
   <div class="flex gap-3 text-sm text-gray-500 mb-6">
     {recipe.totalTime && <span>{recipe.totalTime}</span>}
@@ -32,7 +38,26 @@ const notes = recipe.notes as string[] | null;
     {recipe.servings && <span>{recipe.servings}</span>}
   </div>
 
-  {recipe.baseCalories && (
+  {recipe.photoPath && (
+    <img
+      src={`/photos/${recipe.photoPath}?w=800&f=webp`}
+      alt={recipe.name}
+      class="w-full rounded-lg mb-6 object-cover max-h-72"
+    />
+  )}
+
+  {hasMacros ? (
+    <div class="mb-6">
+      <MacroCalculator
+        client:load
+        baseWeight={recipe.basePortionWeight!}
+        baseCalories={recipe.baseCalories!}
+        baseProtein={recipe.baseProtein!}
+        baseCarbs={recipe.baseCarbs!}
+        baseFat={recipe.baseFat!}
+      />
+    </div>
+  ) : recipe.baseCalories && (
     <div class="grid grid-cols-4 gap-2 mb-6 text-center">
       <div class="bg-gray-50 rounded-lg p-2">
         <div class="text-lg font-semibold">{Math.round(recipe.baseCalories)}</div>

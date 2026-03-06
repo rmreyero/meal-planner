@@ -30,7 +30,7 @@
 
 ## Phase Status
 - [x] Phase 1: Foundation (Astro init, DB schema, seed, layout, basic pages)
-- [ ] Phase 2: Recipe Catalog (filters, favorites, macro calculator)
+- [x] Phase 2: Recipe Catalog (filters, favorites, macro calculator)
 - [ ] Phase 3: Recipe API (write endpoints, auth)
 - [ ] Phase 4: Meal Planner
 - [ ] Phase 5: Macro Targets
