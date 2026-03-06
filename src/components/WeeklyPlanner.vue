@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
 import RecipePicker from './RecipePicker.vue';
+import DailyMacroSummary from './DailyMacroSummary.vue';
+
+interface MacroTarget {
+  profileType: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
 
 const DAY_LABELS = ['L', 'M', 'X', 'J', 'V', 'S', 'D'] as const;
 const DAY_NAMES = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'] as const;
@@ -55,6 +64,8 @@ const activeDay = ref(0);
 const loading = ref(false);
 const showPicker = ref(false);
 const editingLabel = ref<number | null>(null);
+const macroTargets = ref<Record<string, MacroTarget>>({});
+const trainingDays = ref<Record<number, boolean>>({});
 
 // Week navigation
 function shiftWeek(delta: number) {
@@ -111,12 +122,36 @@ function entryMacros(entry: MealEntry) {
 
 // Day totals
 const dayTotals = computed(() => {
-  let kcal = 0, prot = 0, carbs = 0, fat = 0;
+  let calories = 0, protein = 0, carbs = 0, fat = 0;
   for (const e of dayEntries.value) {
     const m = entryMacros(e);
-    if (m) { kcal += m.calories; prot += m.protein; carbs += m.carbs; fat += m.fat; }
+    if (m) { calories += m.calories; protein += m.protein; carbs += m.carbs; fat += m.fat; }
   }
-  return { kcal: Math.round(kcal), prot: +prot.toFixed(1), carbs: +carbs.toFixed(1), fat: +fat.toFixed(1) };
+  return { calories: Math.round(calories), protein: +protein.toFixed(1), carbs: +carbs.toFixed(1), fat: +fat.toFixed(1) };
+});
+
+// Training day toggle
+const isTrainingDay = computed(() => trainingDays.value[activeDay.value] ?? false);
+
+async function toggleTraining() {
+  const newVal = !isTrainingDay.value;
+  trainingDays.value[activeDay.value] = newVal;
+  // Update all entries for this day
+  for (const entry of dayEntries.value) {
+    fetch(`/api/meal-entries/${entry.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ isTrainingDay: newVal }),
+    });
+  }
+}
+
+// Active day's macro target based on training/rest
+const activeDayTarget = computed(() => {
+  const type = isTrainingDay.value ? 'training' : 'rest';
+  const t = macroTargets.value[type];
+  if (!t || !t.calories) return null;
+  return t;
 });
 
 // Fetch week data
@@ -126,11 +161,22 @@ async function fetchWeek() {
   const data = await res.json();
   planId.value = data.id;
   entries.value = data.entries;
+  // Extract training day state from entries
+  trainingDays.value = {};
+  for (const e of data.entries) {
+    if (e.isTrainingDay) trainingDays.value[e.dayOfWeek] = true;
+  }
   loading.value = false;
 }
 
 watch(weekStart, fetchWeek);
-onMounted(fetchWeek);
+onMounted(async () => {
+  await fetchWeek();
+  // Fetch macro targets
+  const res = await fetch('/api/macro-targets');
+  const targets: MacroTarget[] = await res.json();
+  for (const t of targets) macroTargets.value[t.profileType] = t;
+});
 
 // Add meal
 async function addMeal(recipe: RecipeOption) {
@@ -219,8 +265,19 @@ async function saveLabel(entry: MealEntry, label: string) {
     </button>
   </div>
 
-  <!-- Day name -->
-  <h3 class="font-semibold text-gray-700 mb-3">{{ DAY_NAMES[activeDay] }}</h3>
+  <!-- Day name + training toggle -->
+  <div class="flex items-center justify-between mb-3">
+    <h3 class="font-semibold text-gray-700">{{ DAY_NAMES[activeDay] }}</h3>
+    <button
+      @click="toggleTraining"
+      class="text-xs px-3 py-1 rounded-full border transition-colors"
+      :class="isTrainingDay
+        ? 'bg-orange-500 text-white border-orange-500'
+        : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'"
+    >
+      {{ isTrainingDay ? 'Entreno' : 'Descanso' }}
+    </button>
+  </div>
 
   <!-- Loading -->
   <div v-if="loading" class="text-center text-gray-400 py-8 text-sm">Cargando...</div>
@@ -297,25 +354,12 @@ async function saveLabel(entry: MealEntry, label: string) {
       </div>
     </div>
 
-    <!-- Day totals -->
-    <div v-if="dayEntries.length > 1" class="rounded-lg bg-gray-50 p-3 flex justify-around text-center">
-      <div>
-        <div class="text-sm font-semibold">{{ dayTotals.kcal }}</div>
-        <div class="text-xs text-gray-500">kcal</div>
-      </div>
-      <div>
-        <div class="text-sm font-semibold">{{ dayTotals.prot }}g</div>
-        <div class="text-xs text-gray-500">prot</div>
-      </div>
-      <div>
-        <div class="text-sm font-semibold">{{ dayTotals.carbs }}g</div>
-        <div class="text-xs text-gray-500">HC</div>
-      </div>
-      <div>
-        <div class="text-sm font-semibold">{{ dayTotals.fat }}g</div>
-        <div class="text-xs text-gray-500">grasa</div>
-      </div>
-    </div>
+    <!-- Daily macro summary with progress bars -->
+    <DailyMacroSummary
+      v-if="dayEntries.length > 0"
+      :actual="dayTotals"
+      :target="activeDayTarget"
+    />
 
     <!-- Add meal button -->
     <button

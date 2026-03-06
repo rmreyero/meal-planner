@@ -45,14 +45,14 @@
 - [x] `GET /api/meal-plans?week=YYYY-MM-DD` — get week plan (auto-creates)
 - [x] Week navigation (prev/next)
 
-## Phase 5: Macro Targets
+## Phase 5: Macro Targets [DONE]
 
-- [ ] Settings page: define Training / Rest day macro targets
-- [ ] `GET /api/macro-targets` — get both profiles
-- [ ] `PUT /api/macro-targets/:profileType` — update profile
-- [ ] Per-day training/rest toggle in planner
-- [ ] `DailyMacroSummary.vue` — progress bars actual vs target
-- [ ] Weekly summary view
+- [x] Settings page: define Training / Rest day macro targets
+- [x] `GET /api/macro-targets` — get both profiles (auto-creates)
+- [x] `PUT /api/macro-targets/:profileType` — update profile (upsert)
+- [x] Per-day training/rest toggle in planner
+- [x] `DailyMacroSummary.vue` — progress bars actual vs target
+- [x] Daily macro summary integrated in WeeklyPlanner (replaces simple totals)
 
 ## Phase 6: MCP Server
 
