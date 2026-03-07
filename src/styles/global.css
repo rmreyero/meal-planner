@@ -9,12 +9,11 @@
   --color-surface-alt: #f1f5f9;
   --color-border: #e8e2e0;
 
-  --font-display: "DM Serif Display", serif;
-  --font-body: "Manrope", sans-serif;
+  --font-display: "Manrope", sans-serif;
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
 }
 
 .material-symbols-outlined {
@@ -33,6 +32,12 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
   cursor: grab;
 }
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  accent-color: var(--color-primary);
+}
+
 
 /* View transitions */
 @view-transition {
@@ -65,4 +70,13 @@ input[type="range"]::-webkit-slider-thumb {
 /* Progress bar animation */
 .macro-bar {
   transition: width 0.5s ease;
+}
+
+/* Hide scrollbar for horizontal scroll areas */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -50,7 +50,10 @@ export const GET: APIRoute = async ({ params, url }) => {
       try {
         const data = await readFile(fullPath);
         return new Response(data, {
-          headers: { 'Content-Type': MIME[ext] || 'application/octet-stream', 'Cache-Control': 'public, max-age=86400' },
+          headers: {
+            'Content-Type': MIME[ext] || 'application/octet-stream',
+            'Cache-Control': 'public, max-age=86400',
+          },
         });
       } catch {
         return new Response('Not found', { status: 404 });
@@ -67,7 +70,7 @@ export const GET: APIRoute = async ({ params, url }) => {
   if (await fileExists(cachePath)) {
     const cached = await readFile(cachePath);
     return new Response(cached as unknown as BodyInit, {
-      headers: { 'Content-Type': MIME[outFormat] || 'image/webp', 'Cache-Control': 'public, max-age=604800' },
+      headers: { 'Content-Type': MIME[outFormat] || 'image/webp', 'Cache-Control': 'public, max-age=604800, immutable' },
     });
   }
 
@@ -84,7 +87,7 @@ export const GET: APIRoute = async ({ params, url }) => {
     writeFile(cachePath, data).catch(() => {});
 
     return new Response(data as unknown as BodyInit, {
-      headers: { 'Content-Type': MIME[outFormat] || 'image/webp', 'Cache-Control': 'public, max-age=604800' },
+      headers: { 'Content-Type': MIME[outFormat] || 'image/webp', 'Cache-Control': 'public, max-age=604800, immutable' },
     });
   } catch {
     return new Response('Not found', { status: 404 });

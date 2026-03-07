@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import RecipeFilters from './RecipeFilters.vue';
-import FavoriteButton from './FavoriteButton.vue';
 
 interface Recipe {
   id: number;
@@ -12,6 +11,8 @@ interface Recipe {
   baseProtein: number | null;
   isFavorite: boolean | null;
   photoPath: string | null;
+  totalTime: string | null;
+  difficulty: string | null;
 }
 
 const props = defineProps<{
@@ -50,54 +51,65 @@ function onFilter(f: { search: string; tag: string }) {
 <template>
   <RecipeFilters :tags="allTags" @filter="onFilter" />
 
-  <div class="space-y-3 mt-4">
+  <div class="flex flex-col mt-2">
     <a
       v-for="(recipe, idx) in filtered"
       :key="recipe.id"
       :href="`/recipes/${recipe.slug}`"
-      class="recipe-card block bg-white rounded-xl border border-border overflow-hidden shadow-sm hover:border-primary/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
-      :style="{ animationDelay: `${idx * 40}ms` }"
+      class="flex gap-4 py-4 border-b border-slate-100 items-center"
     >
-      <div class="flex">
-        <!-- Thumbnail -->
+      <!-- Photo or gradient placeholder -->
+      <div class="relative shrink-0">
         <img
           v-if="recipe.photoPath"
           :src="`/photos/${recipe.photoPath}?w=200&f=webp`"
           :alt="recipe.name"
-          class="w-20 h-20 object-cover shrink-0 self-center ml-3 rounded-lg"
-          loading="lazy"
+          class="size-20 rounded-xl object-cover shadow-sm"
+          :style="{ viewTransitionName: `recipe-photo-${recipe.id}` }"
+          :loading="idx >= 10 ? 'lazy' : undefined"
         />
-        <div class="flex-1 p-4 min-w-0">
-          <div class="flex justify-between items-start">
-            <div class="min-w-0">
-              <h2 class="font-bold text-base md:text-lg leading-snug">{{ recipe.name }}</h2>
-              <div class="flex gap-1.5 mt-1.5 flex-wrap">
-                <span
-                  v-for="tag in recipe.tags"
-                  :key="tag"
-                  class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider"
-                >{{ tag }}</span>
-              </div>
-            </div>
-            <div class="flex items-start gap-1 shrink-0 ml-3">
-              <div v-if="recipe.baseCalories" class="text-right bg-surface-alt rounded-lg px-2 py-1">
-                <div class="font-extrabold text-sm">{{ Math.round(recipe.baseCalories) }} <span class="text-[10px] text-slate-500 font-bold">kcal</span></div>
-                <div class="text-xs text-primary font-bold">{{ recipe.baseProtein }}g prot</div>
-              </div>
-              <FavoriteButton :recipe-id="recipe.id" :initial="!!recipe.isFavorite" />
-            </div>
-          </div>
+        <div
+          v-else
+          class="flex items-center justify-center size-20 rounded-xl bg-gradient-to-br from-primary/15 to-primary/35 text-primary shadow-sm"
+          :style="{ viewTransitionName: `recipe-photo-${recipe.id}` }"
+        >
+          <span class="text-2xl font-bold">{{ recipe.name.charAt(0) }}</span>
+        </div>
+        <span
+          v-if="recipe.isFavorite"
+          class="material-symbols-outlined filled text-primary text-base absolute -top-1.5 -right-1.5 drop-shadow-sm"
+        >favorite</span>
+      </div>
+
+      <!-- Info -->
+      <div class="flex flex-1 flex-col justify-center min-w-0">
+        <h3 class="text-base font-bold leading-tight text-slate-900">{{ recipe.name }}</h3>
+        <div class="flex items-center gap-2 mt-1" v-if="recipe.totalTime || recipe.difficulty">
+          <span v-if="recipe.totalTime" class="text-slate-500 text-xs flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">schedule</span> {{ recipe.totalTime }}
+          </span>
+          <span v-if="recipe.totalTime && recipe.difficulty" class="text-slate-300">&bull;</span>
+          <span v-if="recipe.difficulty" class="text-slate-500 text-xs">{{ recipe.difficulty }}</span>
+        </div>
+        <div class="flex items-center gap-2 mt-1">
+          <span v-if="recipe.baseCalories" class="text-primary text-xs font-bold bg-primary/10 px-2 py-0.5 rounded-full">
+            {{ Math.round(recipe.baseCalories) }} Kcal
+          </span>
+          <span v-if="recipe.baseProtein" class="text-slate-700 text-xs font-bold bg-slate-100 px-2 py-0.5 rounded-full">
+            {{ recipe.baseProtein }}g Prot
+          </span>
         </div>
       </div>
+
+      <!-- Chevron -->
+      <div class="shrink-0 text-slate-400">
+        <span class="material-symbols-outlined">chevron_right</span>
+      </div>
     </a>
+
     <p v-if="filtered.length === 0" class="text-center text-slate-400 py-8 text-sm">
       No se encontraron recetas
     </p>
   </div>
 </template>
 
-<style scoped>
-.recipe-card {
-  animation: fade-up 0.3s ease both;
-}
-</style>

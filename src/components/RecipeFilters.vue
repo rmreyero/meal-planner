@@ -11,7 +11,7 @@ const emit = defineEmits<{
 
 const search = ref('');
 const selectedTag = ref('');
-const showTags = ref(false);
+const showSearch = ref(false);
 
 const sortedTags = computed(() => [...props.tags].sort());
 
@@ -24,16 +24,20 @@ function toggleTag(tag: string) {
   onFilter();
 }
 
-function clearTag() {
-  selectedTag.value = '';
-  onFilter();
+function toggleSearch() {
+  showSearch.value = !showSearch.value;
+  if (!showSearch.value) {
+    search.value = '';
+    onFilter();
+  }
 }
 </script>
 
 <template>
-  <div class="space-y-3">
-    <div class="flex items-stretch gap-2">
-      <div class="flex-1 flex items-stretch rounded-xl bg-white border border-border shadow-sm overflow-hidden">
+  <div class="space-y-0">
+    <!-- Search bar -->
+    <div v-if="showSearch" class="px-0 pb-3">
+      <div class="flex items-stretch rounded-xl bg-white border border-slate-100 overflow-hidden">
         <div class="flex items-center justify-center pl-3 text-slate-400">
           <span class="material-symbols-outlined text-xl">search</span>
         </div>
@@ -43,42 +47,31 @@ function clearTag() {
           type="search"
           placeholder="Buscar recetas..."
           class="flex-1 border-none bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-slate-400"
+          autofocus
         />
+        <button @click="toggleSearch" class="px-3 text-slate-400 hover:text-slate-600">
+          <span class="material-symbols-outlined text-xl">close</span>
+        </button>
       </div>
-      <button
-        @click="showTags = !showTags"
-        class="md:hidden flex items-center gap-1 px-3 rounded-xl border border-border bg-white text-sm font-bold transition-colors"
-        :class="showTags || selectedTag ? 'text-primary' : 'text-slate-500'"
-      >
-        <span class="material-symbols-outlined text-lg">tune</span>
-        <span class="text-xs">Filtros</span>
-      </button>
     </div>
 
-    <!-- Active tag chip (always visible on mobile when a tag is selected) -->
-    <div v-if="selectedTag && !showTags" class="md:hidden flex items-center gap-2">
+    <!-- Horizontal scrolling tags -->
+    <div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
       <button
-        @click="clearTag"
-        class="text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider bg-primary text-white flex items-center gap-1 transition-colors"
+        @click="toggleSearch"
+        class="flex h-9 shrink-0 items-center justify-center rounded-full px-3 transition-colors"
+        :class="showSearch ? 'bg-primary text-white' : 'bg-slate-100 text-slate-700'"
       >
-        {{ selectedTag }}
-        <span class="material-symbols-outlined text-sm">close</span>
+        <span class="material-symbols-outlined text-xl">search</span>
       </button>
-    </div>
-
-    <!-- Tags: always visible on desktop, toggle on mobile -->
-    <div
-      class="flex gap-2 flex-wrap transition-all"
-      :class="showTags ? '' : 'hidden md:flex'"
-    >
       <button
         v-for="tag in sortedTags"
         :key="tag"
         @click="toggleTag(tag)"
-        class="text-xs px-3 py-1.5 rounded-full font-bold uppercase tracking-wider transition-colors"
+        class="flex h-9 shrink-0 items-center justify-center rounded-full px-4 text-sm font-semibold transition-colors"
         :class="selectedTag === tag
           ? 'bg-primary text-white'
-          : 'bg-primary/10 text-primary hover:bg-primary/20'"
+          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'"
       >
         {{ tag }}
       </button>

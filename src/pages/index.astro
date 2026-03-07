@@ -12,10 +12,11 @@ const recipes = db.select({
   baseProtein: schema.recipes.baseProtein,
   isFavorite: schema.recipes.isFavorite,
   photoPath: schema.recipes.photoPath,
+  totalTime: schema.recipes.totalTime,
+  difficulty: schema.recipes.difficulty,
 }).from(schema.recipes).all();
 ---
 
 <Layout title="Recetas">
-  <h1 class="text-3xl md:text-4xl font-display mb-6">Recetas</h1>
   <RecipeList client:load recipes={recipes} />
 </Layout>

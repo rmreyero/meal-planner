@@ -1,9 +1,10 @@
 ---
 interface Props {
   title: string;
+  hideMobileHeader?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, hideMobileHeader = false } = Astro.props;
 
 const navItems = [
   { href: '/', label: 'Recetas', icon: 'menu_book' },
@@ -22,11 +23,21 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <title>{title} | Meal Planner</title>
   </head>
   <body class="bg-bg text-slate-900 min-h-screen pb-20 md:pb-0">
+    <!-- Mobile top bar -->
+    <header class:list={["md:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-primary/10 px-4 py-2.5", hideMobileHeader && "hidden"]}>
+      <a href="/" class="flex items-center gap-2">
+        <div class="bg-primary p-1 rounded-md text-white">
+          <span class="material-symbols-outlined text-lg">restaurant</span>
+        </div>
+        <span class="text-base font-extrabold tracking-tight">Meal <span class="text-primary">Planner</span></span>
+      </a>
+    </header>
+
     <!-- Desktop top nav -->
     <header class="hidden md:block sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-primary/10">
       <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
@@ -34,7 +45,7 @@ const currentPath = Astro.url.pathname;
           <div class="bg-primary p-1.5 rounded-lg text-white">
             <span class="material-symbols-outlined text-xl">restaurant</span>
           </div>
-          <span class="text-lg font-extrabold tracking-tight font-body">Meal <span class="text-primary">Planner</span></span>
+          <span class="text-lg font-extrabold tracking-tight">Meal <span class="text-primary">Planner</span></span>
         </a>
         <nav class="flex items-center gap-8">
           {navItems.map(({ href, label, icon }) => {
@@ -85,6 +96,6 @@ const currentPath = Astro.url.pathname;
   </body>
 </html>
 
-<style>
+<style is:global>
   @import '../styles/global.css';
 </style>
