@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import WeeklyPlanner from '../components/WeeklyPlanner.vue';
-import { db, schema } from '../../db/index';
+import { listRecipePickerItems } from '../services/recipes';
 
 // Get current week's Monday (local time, no UTC conversion)
 const now = new Date();
@@ -13,13 +13,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 const initialWeek = `${monday.getFullYear()}-${pad(monday.getMonth() + 1)}-${pad(monday.getDate())}`;
 
 // Recipe list for picker
-const recipes = db.select({
-  id: schema.recipes.id,
-  name: schema.recipes.name,
-  slug: schema.recipes.slug,
-  baseCalories: schema.recipes.baseCalories,
-  baseProtein: schema.recipes.baseProtein,
-}).from(schema.recipes).all();
+const recipes = listRecipePickerItems();
 ---
 
 <Layout title="Planner">

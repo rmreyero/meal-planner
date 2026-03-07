@@ -1,7 +1,6 @@
 import type { APIRoute } from 'astro';
-import { db, schema } from '../../../../db/index';
-import { eq } from 'drizzle-orm';
 import { json, errorResponse, parseBody } from '../../../lib/api';
+import { createMealEntry } from '../../../services/meal-entries';
 
 export const POST: APIRoute = async ({ request }) => {
   const body = await parseBody(request);
@@ -13,23 +12,19 @@ export const POST: APIRoute = async ({ request }) => {
     return errorResponse('mealPlanId, dayOfWeek, slotOrder, recipeId required', 400);
   }
 
-  const plan = db.select({ id: schema.mealPlans.id }).from(schema.mealPlans).where(eq(schema.mealPlans.id, mealPlanId as number)).get();
-  if (!plan) return errorResponse('Meal plan not found', 404);
+  const result = createMealEntry({
+    mealPlanId: mealPlanId as number,
+    dayOfWeek: dayOfWeek as number,
+    slotLabel: (slotLabel as string) || null,
+    slotOrder: slotOrder as number,
+    recipeId: recipeId as number,
+    portionWeight: (portionWeight as number) || null,
+  });
 
-  const recipe = db.select({ id: schema.recipes.id }).from(schema.recipes).where(eq(schema.recipes.id, recipeId as number)).get();
-  if (!recipe) return errorResponse('Recipe not found', 404);
+  if (!result.ok) {
+    const status = result.error === 'PLAN_NOT_FOUND' ? 404 : 404;
+    return errorResponse(result.message, status);
+  }
 
-  const entry = db.insert(schema.mealEntries)
-    .values({
-      mealPlanId: mealPlanId as number,
-      dayOfWeek: dayOfWeek as number,
-      slotLabel: (slotLabel as string) || null,
-      slotOrder: slotOrder as number,
-      recipeId: recipeId as number,
-      portionWeight: (portionWeight as number) || null,
-    })
-    .returning()
-    .get();
-
-  return json(entry, 201);
+  return json(result.data, 201);
 };

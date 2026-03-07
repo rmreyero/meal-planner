@@ -1,20 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import RecipeList from '../components/RecipeList.vue';
-import { db, schema } from '../../db/index';
+import { listRecipeSummaries } from '../services/recipes';
 
-const recipes = db.select({
-  id: schema.recipes.id,
-  slug: schema.recipes.slug,
-  name: schema.recipes.name,
-  tags: schema.recipes.tags,
-  baseCalories: schema.recipes.baseCalories,
-  baseProtein: schema.recipes.baseProtein,
-  isFavorite: schema.recipes.isFavorite,
-  photoPath: schema.recipes.photoPath,
-  totalTime: schema.recipes.totalTime,
-  difficulty: schema.recipes.difficulty,
-}).from(schema.recipes).all();
+const recipes = listRecipeSummaries();
 ---
 
 <Layout title="Recetas">

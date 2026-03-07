@@ -1,3 +1,8 @@
+export function parseId(raw: string | undefined): number | null {
+  const n = Number(raw);
+  return Number.isInteger(n) ? n : null;
+}
+
 export function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,

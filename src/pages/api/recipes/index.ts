@@ -1,29 +1,13 @@
 import type { APIRoute } from 'astro';
-import { db, schema } from '../../../../db/index';
-import { like, and, sql, eq } from 'drizzle-orm';
 import { requireAuth } from '../../../lib/auth';
-import { slugify } from '../../../lib/slug';
 import { json, errorResponse, parseBody } from '../../../lib/api';
 import { downloadPhoto } from '../../../lib/photo';
+import { listRecipes, createRecipe, setRecipePhoto } from '../../../services/recipes';
 
 export const GET: APIRoute = async ({ url }) => {
-  const tag = url.searchParams.get('tag');
-  const search = url.searchParams.get('search');
-
-  const conditions = [];
-  if (search) {
-    conditions.push(like(schema.recipes.name, `%${search}%`));
-  }
-  if (tag) {
-    conditions.push(
-      sql`EXISTS (SELECT 1 FROM json_each(${schema.recipes.tags}) WHERE json_each.value = ${tag})`
-    );
-  }
-
-  const where = conditions.length > 0 ? and(...conditions) : undefined;
-  const recipes = db.select().from(schema.recipes).where(where).all();
-
-  return json(recipes);
+  const tag = url.searchParams.get('tag') ?? undefined;
+  const search = url.searchParams.get('search') ?? undefined;
+  return json(listRecipes({ tag, search }));
 };
 
 export const POST: APIRoute = async ({ request }) => {
@@ -39,32 +23,16 @@ export const POST: APIRoute = async ({ request }) => {
     return errorResponse('name is required', 400);
   }
 
-  const slug = slugify(name);
-
-  const existing = db.select({ id: schema.recipes.id })
-    .from(schema.recipes)
-    .where(sql`${schema.recipes.slug} = ${slug}`)
-    .get();
-
-  if (existing) {
-    return errorResponse('Recipe with this name already exists', 409);
-  }
-
-  const result = db.insert(schema.recipes)
-    .values({ ...rest, name, slug } as typeof schema.recipes.$inferInsert)
-    .returning()
-    .get();
+  const result = createRecipe({ ...rest, name });
+  if (!result.ok) return errorResponse(result.message, 409);
 
   if (photoUrl && typeof photoUrl === 'string') {
-    const filename = await downloadPhoto(photoUrl, slug);
+    const filename = await downloadPhoto(photoUrl, result.data.slug);
     if (filename) {
-      db.update(schema.recipes)
-        .set({ photoPath: filename })
-        .where(eq(schema.recipes.id, result.id))
-        .run();
-      result.photoPath = filename;
+      setRecipePhoto(result.data.id, filename);
+      result.data.photoPath = filename;
     }
   }
 
-  return json(result, 201);
+  return json(result.data, 201);
 };

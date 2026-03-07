@@ -1,7 +1,6 @@
 import type { APIRoute } from 'astro';
-import { db, schema } from '../../../../db/index';
-import { eq } from 'drizzle-orm';
 import { json, errorResponse, parseBody } from '../../../lib/api';
+import { upsertTarget } from '../../../services/macro-targets';
 
 const VALID_TYPES = ['training', 'rest'];
 
@@ -16,24 +15,12 @@ export const PUT: APIRoute = async ({ params, request }) => {
 
   const { calories, protein, carbs, fat } = body;
 
-  const existing = db.select({ id: schema.macroTargets.id })
-    .from(schema.macroTargets)
-    .where(eq(schema.macroTargets.profileType, profileType))
-    .get();
-
-  let result;
-  if (existing) {
-    result = db.update(schema.macroTargets)
-      .set({ calories: calories as number, protein: protein as number, carbs: carbs as number, fat: fat as number })
-      .where(eq(schema.macroTargets.id, existing.id))
-      .returning()
-      .get();
-  } else {
-    result = db.insert(schema.macroTargets)
-      .values({ profileType, calories: calories as number, protein: protein as number, carbs: carbs as number, fat: fat as number })
-      .returning()
-      .get();
-  }
+  const result = upsertTarget(profileType, {
+    calories: calories as number,
+    protein: protein as number,
+    carbs: carbs as number,
+    fat: fat as number,
+  });
 
   return json(result);
 };

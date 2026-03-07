@@ -1,10 +1,9 @@
 import type { APIRoute } from 'astro';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import { db, schema } from '../../../../../db/index';
-import { eq } from 'drizzle-orm';
 import { requireAuth } from '../../../../lib/auth';
 import { json, errorResponse } from '../../../../lib/api';
+import { getRecipeById, setRecipePhoto } from '../../../../services/recipes';
 
 const PHOTOS_DIR = join(process.cwd(), 'data', 'photos');
 
@@ -17,14 +16,8 @@ export const POST: APIRoute = async ({ params, request }) => {
     return errorResponse('Invalid id', 400);
   }
 
-  const recipe = db.select({ id: schema.recipes.id, slug: schema.recipes.slug })
-    .from(schema.recipes)
-    .where(eq(schema.recipes.id, id))
-    .get();
-
-  if (!recipe) {
-    return errorResponse('Not found', 404);
-  }
+  const recipe = getRecipeById(id);
+  if (!recipe) return errorResponse('Not found', 404);
 
   const formData = await request.formData();
   const file = formData.get('photo');
@@ -40,10 +33,7 @@ export const POST: APIRoute = async ({ params, request }) => {
   const buffer = Buffer.from(await file.arrayBuffer());
   await writeFile(join(PHOTOS_DIR, filename), buffer);
 
-  db.update(schema.recipes)
-    .set({ photoPath: filename, updatedAt: new Date().toISOString() })
-    .where(eq(schema.recipes.id, id))
-    .run();
+  setRecipePhoto(id, filename);
 
   return json({ photoPath: filename }, 201);
 };

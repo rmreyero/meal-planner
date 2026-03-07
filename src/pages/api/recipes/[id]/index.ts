@@ -1,20 +1,14 @@
 import type { APIRoute } from 'astro';
-import { db, schema } from '../../../../../db/index';
-import { eq } from 'drizzle-orm';
 import { requireAuth } from '../../../../lib/auth';
-import { json, errorResponse, parseBody } from '../../../../lib/api';
+import { json, errorResponse, parseBody, parseId } from '../../../../lib/api';
 import { downloadPhoto } from '../../../../lib/photo';
-
-function parseId(raw: string | undefined): number | null {
-  const n = Number(raw);
-  return Number.isInteger(n) ? n : null;
-}
+import { getRecipeById, updateRecipe } from '../../../../services/recipes';
 
 export const GET: APIRoute = async ({ params }) => {
   const id = parseId(params.id);
   if (!id) return errorResponse('Invalid id', 400);
 
-  const recipe = db.select().from(schema.recipes).where(eq(schema.recipes.id, id)).get();
+  const recipe = getRecipeById(id);
   if (!recipe) return errorResponse('Not found', 404);
 
   return json(recipe);
@@ -27,8 +21,7 @@ export const PUT: APIRoute = async ({ params, request }) => {
   const id = parseId(params.id);
   if (!id) return errorResponse('Invalid id', 400);
 
-  const existing = db.select({ id: schema.recipes.id, slug: schema.recipes.slug })
-    .from(schema.recipes).where(eq(schema.recipes.id, id)).get();
+  const existing = getRecipeById(id);
   if (!existing) return errorResponse('Not found', 404);
 
   const body = await parseBody(request);
@@ -43,11 +36,6 @@ export const PUT: APIRoute = async ({ params, request }) => {
     }
   }
 
-  const result = db.update(schema.recipes)
-    .set({ ...fields, updatedAt: new Date().toISOString() })
-    .where(eq(schema.recipes.id, id))
-    .returning()
-    .get();
-
+  const result = updateRecipe(id, fields);
   return json(result);
 };

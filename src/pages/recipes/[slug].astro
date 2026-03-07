@@ -8,9 +8,8 @@ import IconRestaurant from '~icons/material-symbols/restaurant';
 import IconShoppingBasket from '~icons/material-symbols/shopping-basket-outline';
 import IconLightbulb from '~icons/material-symbols/lightbulb-outline';
 import IconOpenInNew from '~icons/material-symbols/open-in-new';
-import { db, schema } from '../../../db/index';
-import { eq } from 'drizzle-orm';
 import type { IngredientGroup } from '../../../db/schema';
+import { getRecipeBySlug } from '../../services/recipes';
 
 const { slug } = Astro.params;
 
@@ -18,7 +17,7 @@ if (!slug) {
   return Astro.redirect('/');
 }
 
-const recipe = db.select().from(schema.recipes).where(eq(schema.recipes.slug, slug)).get();
+const recipe = getRecipeBySlug(slug);
 
 if (!recipe) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
