@@ -46,7 +46,7 @@ function toggleSearch() {
           @input="onFilter"
           type="search"
           placeholder="Buscar recetas..."
-          class="flex-1 border-none bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-slate-400"
+          class="flex-1 border-none bg-transparent px-3 py-2.5 text-base outline-none placeholder:text-slate-400"
           autofocus
         />
         <button @click="toggleSearch" class="px-3 text-slate-400 hover:text-slate-600">

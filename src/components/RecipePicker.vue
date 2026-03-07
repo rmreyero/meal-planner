@@ -60,7 +60,7 @@ onUnmounted(() => {
             v-model="search"
             type="search"
             placeholder="Buscar..."
-            class="flex-1 border-none bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-slate-400"
+            class="flex-1 border-none bg-transparent px-3 py-2.5 text-base outline-none placeholder:text-slate-400"
           />
         </div>
       </div>

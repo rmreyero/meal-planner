@@ -328,7 +328,7 @@ async function saveLabel(entry: MealEntry, label: string) {
               :value="entry.slotLabel || resolvedLabel(entry)"
               @blur="saveLabel(entry, ($event.target as HTMLInputElement).value)"
               @keyup.enter="($event.target as HTMLInputElement).blur()"
-              class="text-[10px] font-black uppercase text-primary bg-primary/10 rounded-lg px-2 py-1 outline-none border border-primary/20 w-28"
+              class="text-base font-black uppercase text-primary bg-primary/10 rounded-lg px-2 py-1 outline-none border border-primary/20 w-28"
               autofocus
             />
           </div>
@@ -358,7 +358,7 @@ async function saveLabel(entry: MealEntry, label: string) {
           type="number"
           min="10"
           step="10"
-          class="w-16 rounded-lg border border-border px-1.5 py-0.5 text-xs text-center font-bold outline-none focus:border-primary transition-colors"
+          class="w-20 rounded-lg border border-border px-1.5 py-0.5 text-base text-center font-bold outline-none focus:border-primary transition-colors"
         />
         <div class="flex-1 flex items-center gap-1">
           <span class="text-[10px] text-slate-400">{{ Math.round(entry.basePortionWeight * 0.25) }}g</span>
