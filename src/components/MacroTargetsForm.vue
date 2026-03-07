@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import Toast from './Toast.vue';
+import IconFitnessCenter from '~icons/material-symbols/fitness-center';
+import IconWeekend from '~icons/material-symbols/weekend-outline';
 
 interface Profile {
   id: number;
@@ -51,7 +53,6 @@ async function save(type: string) {
 }
 
 const LABELS: Record<string, string> = { training: 'Entrenamiento', rest: 'Descanso' };
-const ICONS: Record<string, string> = { training: 'fitness_center', rest: 'weekend' };
 const FIELDS = [
   { key: 'calories' as const, label: 'Calorias', unit: 'kcal' },
   { key: 'protein' as const, label: 'Proteina', unit: 'g' },
@@ -69,7 +70,8 @@ const FIELDS = [
       class="bg-white rounded-xl border border-border p-5 shadow-sm"
     >
       <h3 class="font-extrabold text-lg mb-4 flex items-center gap-2">
-        <span aria-hidden="true" class="material-symbols-outlined text-primary">{{ ICONS[type] }}</span>
+        <IconFitnessCenter v-if="type === 'training'" class="w-6 h-6 text-primary" />
+        <IconWeekend v-else class="w-6 h-6 text-primary" />
         {{ LABELS[type] }}
       </h3>
 

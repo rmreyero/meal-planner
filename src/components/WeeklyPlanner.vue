@@ -3,6 +3,12 @@ import { ref, computed, watch, onMounted } from 'vue';
 import RecipePicker from './RecipePicker.vue';
 import DailyMacroSummary from './DailyMacroSummary.vue';
 import Toast from './Toast.vue';
+import IconChevronLeft from '~icons/material-symbols/chevron-left';
+import IconChevronRight from '~icons/material-symbols/chevron-right';
+import IconFitnessCenter from '~icons/material-symbols/fitness-center';
+import IconWeekend from '~icons/material-symbols/weekend-outline';
+import IconClose from '~icons/material-symbols/close';
+import IconAddCircle from '~icons/material-symbols/add-circle-outline';
 
 interface MacroTarget {
   profileType: string;
@@ -265,13 +271,13 @@ async function saveLabel(entry: MealEntry, label: string) {
   <!-- Week nav -->
   <div class="flex items-center justify-between mb-4">
     <button @click="shiftWeek(-1)" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
-      <span aria-hidden="true" class="material-symbols-outlined text-slate-500">chevron_left</span>
+      <IconChevronLeft class="w-6 h-6 text-slate-500" />
     </button>
     <div class="flex flex-col items-center">
       <span class="text-sm font-bold">{{ weekDisplay }}</span>
     </div>
     <button @click="shiftWeek(1)" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
-      <span aria-hidden="true" class="material-symbols-outlined text-slate-500">chevron_right</span>
+      <IconChevronRight class="w-6 h-6 text-slate-500" />
     </button>
   </div>
 
@@ -308,7 +314,8 @@ async function saveLabel(entry: MealEntry, label: string) {
         ? 'bg-orange-500 text-white'
         : 'bg-slate-200 text-slate-500 hover:bg-slate-300'"
     >
-      <span aria-hidden="true" class="material-symbols-outlined text-sm">{{ isTrainingDay ? 'fitness_center' : 'weekend' }}</span>
+      <IconFitnessCenter v-if="isTrainingDay" class="w-4 h-4" />
+      <IconWeekend v-else class="w-4 h-4" />
       {{ isTrainingDay ? 'Entreno' : 'Descanso' }}
     </button>
   </div>
@@ -348,7 +355,7 @@ async function saveLabel(entry: MealEntry, label: string) {
           </a>
         </div>
         <button @click="removeEntry(entry.id)" class="text-slate-300 hover:text-red-400 p-1 shrink-0 transition-colors">
-          <span aria-hidden="true" class="material-symbols-outlined text-lg">close</span>
+          <IconClose class="w-5 h-5" />
         </button>
       </div>
 
@@ -399,7 +406,7 @@ async function saveLabel(entry: MealEntry, label: string) {
       @click="showPicker = true"
       class="w-full rounded-xl border-2 border-dashed border-slate-200 py-4 text-sm text-slate-400 hover:border-primary/40 hover:text-primary font-bold transition-colors flex items-center justify-center gap-1"
     >
-      <span aria-hidden="true" class="material-symbols-outlined text-lg">add_circle</span>
+      <IconAddCircle class="w-5 h-5" />
       Anadir comida
     </button>
   </div>

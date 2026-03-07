@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import IconProgressActivity from '~icons/material-symbols/progress-activity';
+import IconAddAPhoto from '~icons/material-symbols/add-a-photo-outline';
+import IconError from '~icons/material-symbols/error-outline';
 
 const props = defineProps<{
   recipeId: number;
@@ -70,11 +73,11 @@ async function handleFile(event: Event) {
       @click="triggerPicker"
     >
       <div v-if="uploading" class="flex flex-col items-center gap-2">
-        <span aria-hidden="true" class="material-symbols-outlined text-slate-400 text-4xl animate-spin">progress_activity</span>
+        <IconProgressActivity class="w-9 h-9 text-slate-400 animate-spin" />
         <span class="text-sm text-slate-500 font-medium">Subiendo...</span>
       </div>
       <template v-else>
-        <span aria-hidden="true" class="material-symbols-outlined text-slate-400 text-4xl">add_a_photo</span>
+        <IconAddAPhoto class="w-9 h-9 text-slate-400" />
         <span class="text-sm text-slate-500 font-medium">Añadir foto</span>
       </template>
     </div>
@@ -85,7 +88,7 @@ async function handleFile(event: Event) {
       class="fixed top-4 right-4 z-[100] flex items-center gap-2 px-4 py-2.5 rounded-xl shadow-lg text-sm font-bold text-white bg-red-500 toast-in cursor-pointer"
       @click="error = ''"
     >
-      <span aria-hidden="true" class="material-symbols-outlined text-lg">error</span>
+      <IconError class="w-5 h-5" />
       {{ error }}
     </div>
   </div>

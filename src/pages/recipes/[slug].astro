@@ -3,6 +3,11 @@ import Layout from '../../layouts/Layout.astro';
 import MacroCalculator from '../../components/MacroCalculator.vue';
 import FavoriteButton from '../../components/FavoriteButton.vue';
 import PhotoUpload from '../../components/PhotoUpload.vue';
+import IconArrowBack from '~icons/material-symbols/arrow-back';
+import IconRestaurant from '~icons/material-symbols/restaurant';
+import IconShoppingBasket from '~icons/material-symbols/shopping-basket-outline';
+import IconLightbulb from '~icons/material-symbols/lightbulb-outline';
+import IconOpenInNew from '~icons/material-symbols/open-in-new';
 import { db, schema } from '../../../db/index';
 import { eq } from 'drizzle-orm';
 import type { IngredientGroup } from '../../../db/schema';
@@ -38,7 +43,7 @@ let stepCounter = 0;
   <!-- Mobile back + favorite -->
   <nav class="flex items-center -mx-4 px-4 py-2 justify-between md:hidden">
     <a href="/" class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 transition-colors">
-      <span aria-hidden="true" class="material-symbols-outlined">arrow_back</span>
+      <IconArrowBack class="w-6 h-6" />
     </a>
     <FavoriteButton client:load recipeId={recipe.id} initial={!!recipe.isFavorite} />
   </nav>
@@ -138,7 +143,7 @@ let stepCounter = 0;
       <!-- Instructions -->
       <section class="py-8">
         <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-          <span aria-hidden="true" class="material-symbols-outlined text-primary">restaurant</span>
+          <IconRestaurant class="w-6 h-6 text-primary" />
           Paso a Paso
         </h2>
         <div class="space-y-8">
@@ -167,7 +172,7 @@ let stepCounter = 0;
       <!-- Ingredients -->
       <section class="bg-white rounded-t-3xl md:rounded-xl shadow-inner md:shadow-sm p-6 -mx-4 md:mx-0 md:border md:border-slate-200">
         <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-          <span aria-hidden="true" class="material-symbols-outlined text-primary">shopping_basket</span>
+          <IconShoppingBasket class="w-6 h-6 text-primary" />
           Ingredientes
         </h2>
         {ingredients.map((group) => (
@@ -191,7 +196,7 @@ let stepCounter = 0;
       {notes && notes.length > 0 && (
         <section class="bg-primary/5 p-6 rounded-2xl border border-primary/10 -mx-4 md:mx-0">
           <h3 class="text-lg font-bold mb-3 flex items-center gap-2 text-primary">
-            <span aria-hidden="true" class="material-symbols-outlined">lightbulb</span>
+            <IconLightbulb class="w-6 h-6" />
             Notas y Consejos
           </h3>
           <ul class="space-y-2 list-disc list-inside text-sm text-slate-700 leading-relaxed">
@@ -210,7 +215,7 @@ let stepCounter = 0;
           rel="noopener noreferrer"
           class="flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors -mx-4 md:mx-0 px-4 md:px-0"
         >
-          <span aria-hidden="true" class="material-symbols-outlined text-base">open_in_new</span>
+          <IconOpenInNew class="w-4 h-4" />
           Ver receta original
         </a>
       )}

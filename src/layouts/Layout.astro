@@ -1,4 +1,10 @@
 ---
+import '@fontsource-variable/manrope';
+import IconRestaurant from '~icons/material-symbols/restaurant';
+import IconMenuBook from '~icons/material-symbols/menu-book-outline';
+import IconCalendarToday from '~icons/material-symbols/calendar-today-outline';
+import IconTune from '~icons/material-symbols/tune';
+
 interface Props {
   title: string;
   description?: string;
@@ -9,10 +15,10 @@ const { title, description = 'Planifica tus comidas y controla tus macros.', hid
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 
 const navItems = [
-  { href: '/', label: 'Recetas', icon: 'menu_book' },
-  { href: '/planner', label: 'Planner', icon: 'calendar_today' },
-  { href: '/settings', label: 'Ajustes', icon: 'tune' },
-] as const;
+  { href: '/', label: 'Recetas', Icon: IconMenuBook },
+  { href: '/planner', label: 'Planner', Icon: IconCalendarToday },
+  { href: '/settings', label: 'Ajustes', Icon: IconTune },
+];
 
 const currentPath = Astro.url.pathname;
 ---
@@ -25,10 +31,6 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL.href} />
     <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <title>{title} | Meal Planner</title>
   </head>
   <body class="bg-bg text-slate-900 min-h-screen pb-20 md:pb-0">
@@ -37,7 +39,7 @@ const currentPath = Astro.url.pathname;
     <header class:list={["md:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-primary/10 px-4 py-2.5", hideMobileHeader && "hidden"]}>
       <a href="/" class="flex items-center gap-2">
         <div class="bg-primary p-1 rounded-md text-white">
-          <span aria-hidden="true" class="material-symbols-outlined text-lg">restaurant</span>
+          <IconRestaurant class="w-5 h-5" />
         </div>
         <span class="text-base font-extrabold tracking-tight">Meal <span class="text-primary">Planner</span></span>
       </a>
@@ -48,12 +50,12 @@ const currentPath = Astro.url.pathname;
       <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="/" class="flex items-center gap-2.5">
           <div class="bg-primary p-1.5 rounded-lg text-white">
-            <span aria-hidden="true" class="material-symbols-outlined text-xl">restaurant</span>
+            <IconRestaurant class="w-5 h-5" />
           </div>
           <span class="text-lg font-extrabold tracking-tight">Meal <span class="text-primary">Planner</span></span>
         </a>
         <nav class="flex items-center gap-8">
-          {navItems.map(({ href, label, icon }) => {
+          {navItems.map(({ href, label, Icon }) => {
             const isActive = href === '/' ? currentPath === '/' : currentPath.startsWith(href);
             return (
               <a
@@ -65,7 +67,7 @@ const currentPath = Astro.url.pathname;
                     : 'text-slate-500 hover:text-primary',
                 ]}
               >
-                <span aria-hidden="true" class="material-symbols-outlined text-lg">{icon}</span>
+                <Icon class="w-5 h-5" />
                 {label}
               </a>
             );
@@ -81,7 +83,7 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile bottom nav -->
     <nav class="md:hidden fixed bottom-0 left-0 right-0 border-t border-border bg-white/90 backdrop-blur-md px-6 pb-5 pt-2 z-50">
       <div class="flex justify-around items-center max-w-md mx-auto">
-        {navItems.map(({ href, label, icon }) => {
+        {navItems.map(({ href, label, Icon }) => {
           const isActive = href === '/' ? currentPath === '/' : currentPath.startsWith(href);
           return (
             <a
@@ -91,7 +93,7 @@ const currentPath = Astro.url.pathname;
                 isActive ? 'text-primary' : 'text-slate-400',
               ]}
             >
-              <span aria-hidden="true" class="material-symbols-outlined">{icon}</span>
+              <Icon class="w-6 h-6" />
               <span class="text-[10px] font-bold uppercase tracking-widest">{label}</span>
             </a>
           );

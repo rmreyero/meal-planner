@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import IconSearch from '~icons/material-symbols/search';
+import IconClose from '~icons/material-symbols/close';
 
 const props = defineProps<{
   tags: string[];
@@ -39,7 +41,7 @@ function toggleSearch() {
     <div v-if="showSearch" class="px-0 pb-3">
       <div class="flex items-stretch rounded-xl bg-white border border-slate-100 overflow-hidden">
         <div class="flex items-center justify-center pl-3 text-slate-400">
-          <span aria-hidden="true" class="material-symbols-outlined text-xl">search</span>
+          <IconSearch class="w-5 h-5" />
         </div>
         <input
           v-model="search"
@@ -50,7 +52,7 @@ function toggleSearch() {
           autofocus
         />
         <button @click="toggleSearch" class="px-3 text-slate-400 hover:text-slate-600">
-          <span aria-hidden="true" class="material-symbols-outlined text-xl">close</span>
+          <IconClose class="w-5 h-5" />
         </button>
       </div>
     </div>
@@ -64,7 +66,7 @@ function toggleSearch() {
         class="flex h-9 shrink-0 items-center justify-center rounded-full px-3 transition-colors"
         :class="showSearch ? 'bg-primary text-white' : 'bg-slate-100 text-slate-700'"
       >
-        <span aria-hidden="true" class="material-symbols-outlined text-xl">search</span>
+        <IconSearch class="w-5 h-5" />
       </button>
       <button
         v-for="tag in sortedTags"

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import RecipeFilters from './RecipeFilters.vue';
+import IconFavorite from '~icons/material-symbols/favorite-rounded';
+import IconSchedule from '~icons/material-symbols/schedule-outline';
+import IconChevronRight from '~icons/material-symbols/chevron-right';
 
 interface Recipe {
   id: number;
@@ -77,10 +80,10 @@ function onFilter(f: { search: string; tag: string }) {
         >
           <span class="text-2xl font-bold">{{ recipe.name.charAt(0) }}</span>
         </div>
-        <span
+        <IconFavorite
           v-if="recipe.isFavorite"
-          class="material-symbols-outlined filled text-primary text-base absolute -top-1.5 -right-1.5 drop-shadow-sm"
-        >favorite</span>
+          class="text-primary w-4 h-4 absolute -top-1.5 -right-1.5 drop-shadow-sm"
+        />
       </div>
 
       <!-- Info -->
@@ -88,7 +91,7 @@ function onFilter(f: { search: string; tag: string }) {
         <h3 class="text-base font-bold leading-tight text-slate-900">{{ recipe.name }}</h3>
         <div class="flex items-center gap-2 mt-1" v-if="recipe.totalTime || recipe.difficulty">
           <span v-if="recipe.totalTime" class="text-slate-500 text-xs flex items-center gap-1">
-            <span aria-hidden="true" class="material-symbols-outlined text-sm">schedule</span> {{ recipe.totalTime }}
+            <IconSchedule class="w-4 h-4" /> {{ recipe.totalTime }}
           </span>
           <span v-if="recipe.totalTime && recipe.difficulty" class="text-slate-300">&bull;</span>
           <span v-if="recipe.difficulty" class="text-slate-500 text-xs">{{ recipe.difficulty }}</span>
@@ -105,7 +108,7 @@ function onFilter(f: { search: string; tag: string }) {
 
       <!-- Chevron -->
       <div class="shrink-0 text-slate-400">
-        <span aria-hidden="true" class="material-symbols-outlined">chevron_right</span>
+        <IconChevronRight class="w-6 h-6" />
       </div>
     </a>
 

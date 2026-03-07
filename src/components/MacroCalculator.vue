@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import IconRemove from '~icons/material-symbols/remove';
+import IconAdd from '~icons/material-symbols/add';
 
 const props = defineProps<{
   baseWeight: number;
@@ -40,7 +42,7 @@ const macros = computed(() => ({
           @click="decrement"
           class="size-8 flex items-center justify-center text-primary rounded-full hover:bg-primary/10 transition-colors"
         >
-          <span aria-hidden="true" class="material-symbols-outlined">remove</span>
+          <IconRemove class="w-6 h-6" />
         </button>
         <input
           v-model.number="weight"
@@ -53,7 +55,7 @@ const macros = computed(() => ({
           @click="increment"
           class="size-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary-dark transition-colors"
         >
-          <span aria-hidden="true" class="material-symbols-outlined">add</span>
+          <IconAdd class="w-6 h-6" />
         </button>
       </div>
     </div>

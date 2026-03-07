@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import IconError from '~icons/material-symbols/error-outline';
+import IconCheckCircle from '~icons/material-symbols/check-circle-outline';
 
 interface ToastItem {
   id: number;
@@ -41,9 +43,8 @@ defineExpose({ show });
       ]"
       @click="dismiss(toast.id)"
     >
-      <span aria-hidden="true" class="material-symbols-outlined text-lg">
-        {{ toast.type === 'error' ? 'error' : 'check_circle' }}
-      </span>
+      <IconError v-if="toast.type === 'error'" class="w-5 h-5" />
+      <IconCheckCircle v-else class="w-5 h-5" />
       {{ toast.message }}
     </div>
   </div>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import IconClose from '~icons/material-symbols/close';
+import IconSearch from '~icons/material-symbols/search';
 
 interface RecipeOption {
   id: number;
@@ -48,12 +50,12 @@ onUnmounted(() => {
         <div class="flex justify-between items-center mb-3">
           <h3 class="font-extrabold text-lg">Elegir receta</h3>
           <button @click="emit('cancel')" class="flex size-8 items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
-            <span aria-hidden="true" class="material-symbols-outlined text-slate-400">close</span>
+            <IconClose class="w-6 h-6 text-slate-400" />
           </button>
         </div>
         <div class="flex items-stretch rounded-xl bg-bg border border-border overflow-hidden">
           <div class="flex items-center justify-center pl-3 text-slate-400">
-            <span aria-hidden="true" class="material-symbols-outlined text-xl">search</span>
+            <IconSearch class="w-5 h-5" />
           </div>
           <input
             ref="searchInput"

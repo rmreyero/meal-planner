@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import IconFavoriteFilled from '~icons/material-symbols/favorite-rounded';
+import IconFavoriteOutline from '~icons/material-symbols/favorite-outline';
 
 const props = defineProps<{
   recipeId: number;
@@ -39,13 +41,15 @@ async function toggle() {
     :aria-label="isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos'"
     class="flex size-10 items-center justify-center rounded-full transition-colors hover:bg-primary/10"
   >
-    <span
-      aria-hidden="true"
-      class="material-symbols-outlined text-2xl transition-all duration-200"
-      :class="[
-        isFavorite ? 'filled text-primary' : 'text-slate-300 hover:text-slate-400',
-        pulse ? 'scale-125' : 'scale-100',
-      ]"
-    >favorite</span>
+    <IconFavoriteFilled
+      v-if="isFavorite"
+      class="w-6 h-6 text-primary transition-all duration-200"
+      :class="pulse ? 'scale-125' : 'scale-100'"
+    />
+    <IconFavoriteOutline
+      v-else
+      class="w-6 h-6 text-slate-300 hover:text-slate-400 transition-all duration-200"
+      :class="pulse ? 'scale-125' : 'scale-100'"
+    />
   </button>
 </template>
