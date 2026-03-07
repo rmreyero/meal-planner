@@ -1,6 +1,10 @@
-# Meal Planner
+<p align="center">
+  <img src="public/favicon.svg" alt="Meal Planner" width="80" />
+</p>
 
-Personal meal planning app with recipe catalog, weekly planner and macro tracking.
+<h1 align="center">Meal Planner</h1>
+
+<p align="center">Personal meal planning app with recipe catalog, weekly planner and macro tracking.</p>
 
 ## MCP Server — AI-powered recipe management
 
