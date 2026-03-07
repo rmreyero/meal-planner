@@ -2,6 +2,7 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import RecipePicker from './RecipePicker.vue';
 import DailyMacroSummary from './DailyMacroSummary.vue';
+import Toast from './Toast.vue';
 
 interface MacroTarget {
   profileType: string;
@@ -66,6 +67,7 @@ const showPicker = ref(false);
 const editingLabel = ref<number | null>(null);
 const macroTargets = ref<Record<string, MacroTarget>>({});
 const trainingDays = ref<Record<number, boolean>>({});
+const toast = ref<InstanceType<typeof Toast> | null>(null);
 
 function formatLocalDate(d: Date): string {
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -133,12 +135,19 @@ const isTrainingDay = computed(() => trainingDays.value[activeDay.value] ?? fals
 async function toggleTraining() {
   const newVal = !isTrainingDay.value;
   trainingDays.value[activeDay.value] = newVal;
-  for (const entry of dayEntries.value) {
-    fetch(`/api/meal-entries/${entry.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ isTrainingDay: newVal }),
-    });
+  try {
+    const promises = dayEntries.value.map((entry) =>
+      fetch(`/api/meal-entries/${entry.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isTrainingDay: newVal }),
+      })
+    );
+    await Promise.all(promises);
+    toast.value?.show(newVal ? 'Dia de entreno' : 'Dia de descanso', 'success');
+  } catch {
+    trainingDays.value[activeDay.value] = !newVal;
+    toast.value?.show('Error al cambiar tipo de dia', 'error');
   }
 }
 
@@ -151,23 +160,34 @@ const activeDayTarget = computed(() => {
 
 async function fetchWeek() {
   loading.value = true;
-  const res = await fetch(`/api/meal-plans?week=${weekStart.value}`);
-  const data = await res.json();
-  planId.value = data.id;
-  entries.value = data.entries;
-  trainingDays.value = {};
-  for (const e of data.entries) {
-    if (e.isTrainingDay) trainingDays.value[e.dayOfWeek] = true;
+  try {
+    const res = await fetch(`/api/meal-plans?week=${weekStart.value}`);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    planId.value = data.id;
+    entries.value = data.entries;
+    trainingDays.value = {};
+    for (const e of data.entries) {
+      if (e.isTrainingDay) trainingDays.value[e.dayOfWeek] = true;
+    }
+  } catch {
+    toast.value?.show('Error al cargar el plan', 'error');
+  } finally {
+    loading.value = false;
   }
-  loading.value = false;
 }
 
 watch(weekStart, fetchWeek);
 onMounted(async () => {
   await fetchWeek();
-  const res = await fetch('/api/macro-targets');
-  const targets: MacroTarget[] = await res.json();
-  for (const t of targets) macroTargets.value[t.profileType] = t;
+  try {
+    const res = await fetch('/api/macro-targets');
+    if (!res.ok) throw new Error();
+    const targets: MacroTarget[] = await res.json();
+    for (const t of targets) macroTargets.value[t.profileType] = t;
+  } catch {
+    // Macro targets are optional
+  }
 });
 
 async function addMeal(recipe: RecipeOption) {
@@ -175,46 +195,73 @@ async function addMeal(recipe: RecipeOption) {
   if (!planId.value) return;
   const daySlots = entries.value.filter((e) => e.dayOfWeek === activeDay.value);
   const slotOrder = daySlots.length;
-  const res = await fetch('/api/meal-entries', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      mealPlanId: planId.value,
-      dayOfWeek: activeDay.value,
-      slotOrder,
-      recipeId: recipe.id,
-    }),
-  });
-  if (res.ok) await fetchWeek();
+  try {
+    const res = await fetch('/api/meal-entries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        mealPlanId: planId.value,
+        dayOfWeek: activeDay.value,
+        slotOrder,
+        recipeId: recipe.id,
+      }),
+    });
+    if (!res.ok) throw new Error();
+    await fetchWeek();
+  } catch {
+    toast.value?.show('Error al anadir comida', 'error');
+  }
 }
 
 async function removeEntry(id: number) {
-  const res = await fetch(`/api/meal-entries/${id}`, { method: 'DELETE' });
-  if (res.ok) entries.value = entries.value.filter((e) => e.id !== id);
+  const entry = entries.value.find((e) => e.id === id);
+  if (!entry) return;
+  const confirmed = window.confirm(`Eliminar "${entry.recipeName}"?`);
+  if (!confirmed) return;
+  try {
+    const res = await fetch(`/api/meal-entries/${id}`, { method: 'DELETE' });
+    if (!res.ok) throw new Error();
+    entries.value = entries.value.filter((e) => e.id !== id);
+    toast.value?.show('Comida eliminada', 'success');
+  } catch {
+    toast.value?.show('Error al eliminar comida', 'error');
+  }
 }
 
 async function updatePortion(entry: MealEntry, weight: number) {
   entry.portionWeight = weight;
-  await fetch(`/api/meal-entries/${entry.id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ portionWeight: weight }),
-  });
+  try {
+    const res = await fetch(`/api/meal-entries/${entry.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ portionWeight: weight }),
+    });
+    if (!res.ok) throw new Error();
+  } catch {
+    toast.value?.show('Error al actualizar porcion', 'error');
+  }
 }
 
 async function saveLabel(entry: MealEntry, label: string) {
   editingLabel.value = null;
   const trimmed = label.trim() || null;
   entry.slotLabel = trimmed;
-  await fetch(`/api/meal-entries/${entry.id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ slotLabel: trimmed }),
-  });
+  try {
+    const res = await fetch(`/api/meal-entries/${entry.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slotLabel: trimmed }),
+    });
+    if (!res.ok) throw new Error();
+  } catch {
+    toast.value?.show('Error al guardar etiqueta', 'error');
+  }
 }
 </script>
 
 <template>
+  <Toast ref="toast" />
+
   <!-- Week nav -->
   <div class="flex items-center justify-between mb-4">
     <button @click="shiftWeek(-1)" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
@@ -243,7 +290,7 @@ async function saveLabel(entry: MealEntry, label: string) {
       <div class="text-[10px]" :class="activeDay === idx ? 'text-white/70' : 'text-slate-400'">{{ dayDate(idx) }}</div>
       <div
         v-if="dayHasEntries(idx) && activeDay !== idx"
-        class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-primary"
+        class="absolute -top-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-sm shadow-primary/40"
       ></div>
     </button>
   </div>
@@ -271,7 +318,7 @@ async function saveLabel(entry: MealEntry, label: string) {
     <div
       v-for="entry in dayEntries"
       :key="entry.id"
-      class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:border-primary/30 transition-all"
+      class="bg-white rounded-xl border border-border p-3 shadow-sm hover:border-primary/30 transition-all"
     >
       <div class="flex items-start justify-between mb-2">
         <div class="min-w-0">
@@ -311,17 +358,21 @@ async function saveLabel(entry: MealEntry, label: string) {
           type="number"
           min="10"
           step="10"
-          class="w-16 rounded-lg border border-slate-200 px-1.5 py-0.5 text-xs text-center font-bold outline-none focus:border-primary transition-colors"
+          class="w-16 rounded-lg border border-border px-1.5 py-0.5 text-xs text-center font-bold outline-none focus:border-primary transition-colors"
         />
-        <input
-          :value="entry.portionWeight || entry.basePortionWeight"
-          @input="updatePortion(entry, Number(($event.target as HTMLInputElement).value))"
-          type="range"
-          :min="Math.round(entry.basePortionWeight * 0.25)"
-          :max="Math.round(entry.basePortionWeight * 3)"
-          step="5"
-          class="flex-1"
-        />
+        <div class="flex-1 flex items-center gap-1">
+          <span class="text-[10px] text-slate-400">{{ Math.round(entry.basePortionWeight * 0.25) }}g</span>
+          <input
+            :value="entry.portionWeight || entry.basePortionWeight"
+            @input="updatePortion(entry, Number(($event.target as HTMLInputElement).value))"
+            type="range"
+            :min="Math.round(entry.basePortionWeight * 0.25)"
+            :max="Math.round(entry.basePortionWeight * 3)"
+            step="5"
+            class="flex-1"
+          />
+          <span class="text-[10px] text-slate-400">{{ Math.round(entry.basePortionWeight * 3) }}g</span>
+        </div>
       </div>
 
       <!-- Macros -->

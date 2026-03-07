@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import Toast from './Toast.vue';
 
 interface Profile {
   id: number;
@@ -13,6 +14,7 @@ interface Profile {
 const profiles = ref<Record<string, Profile>>({});
 const saving = ref<string | null>(null);
 const saved = ref<string | null>(null);
+const toast = ref<InstanceType<typeof Toast> | null>(null);
 
 onMounted(async () => {
   const res = await fetch('/api/macro-targets');
@@ -27,19 +29,25 @@ async function save(type: string) {
   if (!profile) return;
 
   saving.value = type;
-  await fetch(`/api/macro-targets/${type}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      calories: profile.calories,
-      protein: profile.protein,
-      carbs: profile.carbs,
-      fat: profile.fat,
-    }),
-  });
-  saving.value = null;
-  saved.value = type;
-  setTimeout(() => { if (saved.value === type) saved.value = null; }, 2000);
+  try {
+    const res = await fetch(`/api/macro-targets/${type}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        calories: profile.calories,
+        protein: profile.protein,
+        carbs: profile.carbs,
+        fat: profile.fat,
+      }),
+    });
+    if (!res.ok) throw new Error();
+    saved.value = type;
+    setTimeout(() => { if (saved.value === type) saved.value = null; }, 2000);
+  } catch {
+    toast.value?.show('Error al guardar objetivos', 'error');
+  } finally {
+    saving.value = null;
+  }
 }
 
 const LABELS: Record<string, string> = { training: 'Entrenamiento', rest: 'Descanso' };
@@ -53,11 +61,12 @@ const FIELDS = [
 </script>
 
 <template>
+  <Toast ref="toast" />
   <div class="space-y-6">
     <div
       v-for="type in ['training', 'rest']"
       :key="type"
-      class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm"
+      class="bg-white rounded-xl border border-border p-5 shadow-sm"
     >
       <h3 class="font-extrabold text-lg mb-4 flex items-center gap-2">
         <span class="material-symbols-outlined text-primary">{{ ICONS[type] }}</span>
@@ -71,7 +80,7 @@ const FIELDS = [
             v-model.number="profiles[type][field.key]"
             type="number"
             min="0"
-            class="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-bold outline-none focus:border-primary transition-colors"
+            class="flex-1 rounded-lg border border-border px-3 py-2 text-sm font-bold outline-none focus:border-primary transition-colors"
           />
           <span class="text-xs text-slate-400 font-bold w-8">{{ field.unit }}</span>
         </div>
@@ -79,7 +88,7 @@ const FIELDS = [
         <button
           @click="save(type)"
           :disabled="saving === type"
-          class="w-full mt-3 rounded-xl bg-primary text-white py-2.5 text-sm font-bold shadow-lg shadow-primary/20 hover:brightness-110 disabled:opacity-50 transition-all"
+          class="w-full mt-3 rounded-xl bg-primary text-white py-2.5 text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary-dark disabled:opacity-50 transition-all"
         >
           {{ saving === type ? 'Guardando...' : saved === type ? 'Guardado' : 'Guardar' }}
         </button>

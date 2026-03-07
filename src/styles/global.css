@@ -2,15 +2,19 @@
 
 @theme {
   --color-primary: #ec3713;
+  --color-primary-dark: #c42e10;
+  --color-success: #16a34a;
   --color-bg: #f8f6f6;
   --color-surface: #ffffff;
   --color-surface-alt: #f1f5f9;
+  --color-border: #e8e2e0;
 
-  --font-display: "Manrope", sans-serif;
+  --font-display: "DM Serif Display", serif;
+  --font-body: "Manrope", sans-serif;
 }
 
 body {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
 }
 
 .material-symbols-outlined {
@@ -28,4 +32,37 @@ input[type="range"] {
 
 input[type="range"]::-webkit-slider-thumb {
   cursor: grab;
+}
+
+/* View transitions */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.2s;
+  animation-timing-function: ease;
+}
+
+/* Toast animations */
+@keyframes toast-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toast-out {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+/* Card stagger animation */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress bar animation */
+.macro-bar {
+  transition: width 0.5s ease;
 }

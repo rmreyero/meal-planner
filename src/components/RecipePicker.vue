@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 interface RecipeOption {
   id: number;
@@ -19,11 +19,25 @@ const emit = defineEmits<{
 }>();
 
 const search = ref('');
+const searchInput = ref<HTMLInputElement | null>(null);
 
 const filtered = computed(() => {
   if (!search.value) return props.recipes;
   const q = search.value.toLowerCase();
   return props.recipes.filter((r) => r.name.toLowerCase().includes(q));
+});
+
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape') emit('cancel');
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', onKeydown);
+  searchInput.value?.focus();
+});
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', onKeydown);
 });
 </script>
 
@@ -37,16 +51,16 @@ const filtered = computed(() => {
             <span class="material-symbols-outlined text-slate-400">close</span>
           </button>
         </div>
-        <div class="flex items-stretch rounded-xl bg-bg border border-slate-200 overflow-hidden">
+        <div class="flex items-stretch rounded-xl bg-bg border border-border overflow-hidden">
           <div class="flex items-center justify-center pl-3 text-slate-400">
             <span class="material-symbols-outlined text-xl">search</span>
           </div>
           <input
+            ref="searchInput"
             v-model="search"
             type="search"
             placeholder="Buscar..."
             class="flex-1 border-none bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-slate-400"
-            autofocus
           />
         </div>
       </div>

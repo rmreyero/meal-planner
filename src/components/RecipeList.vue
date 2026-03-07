@@ -52,36 +52,40 @@ function onFilter(f: { search: string; tag: string }) {
 
   <div class="space-y-3 mt-4">
     <a
-      v-for="recipe in filtered"
+      v-for="(recipe, idx) in filtered"
       :key="recipe.id"
       :href="`/recipes/${recipe.slug}`"
-      class="block bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:border-primary/50 transition-all"
+      class="recipe-card block bg-white rounded-xl border border-border overflow-hidden shadow-sm hover:border-primary/50 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+      :style="{ animationDelay: `${idx * 40}ms` }"
     >
-      <img
-        v-if="recipe.photoPath"
-        :src="`/photos/${recipe.photoPath}?w=400&f=webp`"
-        :alt="recipe.name"
-        class="w-full h-40 object-cover"
-        loading="lazy"
-      />
-      <div class="p-4">
-        <div class="flex justify-between items-start">
-          <div class="min-w-0">
-            <h2 class="font-bold text-base">{{ recipe.name }}</h2>
-            <div class="flex gap-1.5 mt-2 flex-wrap">
-              <span
-                v-for="tag in recipe.tags"
-                :key="tag"
-                class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold uppercase tracking-wider"
-              >{{ tag }}</span>
+      <div class="flex">
+        <!-- Thumbnail -->
+        <img
+          v-if="recipe.photoPath"
+          :src="`/photos/${recipe.photoPath}?w=200&f=webp`"
+          :alt="recipe.name"
+          class="w-20 h-20 object-cover shrink-0 self-center ml-3 rounded-lg"
+          loading="lazy"
+        />
+        <div class="flex-1 p-4 min-w-0">
+          <div class="flex justify-between items-start">
+            <div class="min-w-0">
+              <h2 class="font-bold text-base md:text-lg leading-snug">{{ recipe.name }}</h2>
+              <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                <span
+                  v-for="tag in recipe.tags"
+                  :key="tag"
+                  class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider"
+                >{{ tag }}</span>
+              </div>
             </div>
-          </div>
-          <div class="flex items-start gap-1 shrink-0 ml-3">
-            <div v-if="recipe.baseCalories" class="text-right">
-              <div class="font-extrabold text-sm">{{ Math.round(recipe.baseCalories) }} <span class="text-[10px] text-slate-500 font-bold">kcal</span></div>
-              <div class="text-xs text-primary font-bold">{{ recipe.baseProtein }}g prot</div>
+            <div class="flex items-start gap-1 shrink-0 ml-3">
+              <div v-if="recipe.baseCalories" class="text-right bg-surface-alt rounded-lg px-2 py-1">
+                <div class="font-extrabold text-sm">{{ Math.round(recipe.baseCalories) }} <span class="text-[10px] text-slate-500 font-bold">kcal</span></div>
+                <div class="text-xs text-primary font-bold">{{ recipe.baseProtein }}g prot</div>
+              </div>
+              <FavoriteButton :recipe-id="recipe.id" :initial="!!recipe.isFavorite" />
             </div>
-            <FavoriteButton :recipe-id="recipe.id" :initial="!!recipe.isFavorite" />
           </div>
         </div>
       </div>
@@ -91,3 +95,9 @@ function onFilter(f: { search: string; tag: string }) {
     </p>
   </div>
 </template>
+
+<style scoped>
+.recipe-card {
+  animation: fade-up 0.3s ease both;
+}
+</style>

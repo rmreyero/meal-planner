@@ -22,7 +22,7 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <title>{title} | Meal Planner</title>
   </head>
@@ -34,7 +34,7 @@ const currentPath = Astro.url.pathname;
           <div class="bg-primary p-1.5 rounded-lg text-white">
             <span class="material-symbols-outlined text-xl">restaurant</span>
           </div>
-          <span class="text-lg font-extrabold tracking-tight">Meal <span class="text-primary">Planner</span></span>
+          <span class="text-lg font-extrabold tracking-tight font-body">Meal <span class="text-primary">Planner</span></span>
         </a>
         <nav class="flex items-center gap-8">
           {navItems.map(({ href, label, icon }) => {
@@ -63,7 +63,7 @@ const currentPath = Astro.url.pathname;
     </main>
 
     <!-- Mobile bottom nav -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white/90 backdrop-blur-md px-6 pb-5 pt-2 z-50">
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 border-t border-border bg-white/90 backdrop-blur-md px-6 pb-5 pt-2 z-50">
       <div class="flex justify-around items-center max-w-md mx-auto">
         {navItems.map(({ href, label, icon }) => {
           const isActive = href === '/' ? currentPath === '/' : currentPath.startsWith(href);
