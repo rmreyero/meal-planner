@@ -31,3 +31,4 @@ data/photos/*
 
 # jetbrains setting folder
 .idea/
+.claude/settings.local.json
