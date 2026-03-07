@@ -70,11 +70,11 @@ async function handleFile(event: Event) {
       @click="triggerPicker"
     >
       <div v-if="uploading" class="flex flex-col items-center gap-2">
-        <span class="material-symbols-outlined text-slate-400 text-4xl animate-spin">progress_activity</span>
+        <span aria-hidden="true" class="material-symbols-outlined text-slate-400 text-4xl animate-spin">progress_activity</span>
         <span class="text-sm text-slate-500 font-medium">Subiendo...</span>
       </div>
       <template v-else>
-        <span class="material-symbols-outlined text-slate-400 text-4xl">add_a_photo</span>
+        <span aria-hidden="true" class="material-symbols-outlined text-slate-400 text-4xl">add_a_photo</span>
         <span class="text-sm text-slate-500 font-medium">Añadir foto</span>
       </template>
     </div>
@@ -85,7 +85,7 @@ async function handleFile(event: Event) {
       class="fixed top-4 right-4 z-[100] flex items-center gap-2 px-4 py-2.5 rounded-xl shadow-lg text-sm font-bold text-white bg-red-500 toast-in cursor-pointer"
       @click="error = ''"
     >
-      <span class="material-symbols-outlined text-lg">error</span>
+      <span aria-hidden="true" class="material-symbols-outlined text-lg">error</span>
       {{ error }}
     </div>
   </div>

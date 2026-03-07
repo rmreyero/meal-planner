@@ -40,6 +40,7 @@ async function toggle() {
     class="flex size-10 items-center justify-center rounded-full transition-colors hover:bg-primary/10"
   >
     <span
+      aria-hidden="true"
       class="material-symbols-outlined text-2xl transition-all duration-200"
       :class="[
         isFavorite ? 'filled text-primary' : 'text-slate-300 hover:text-slate-400',

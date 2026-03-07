@@ -64,6 +64,8 @@ function onFilter(f: { search: string; tag: string }) {
           v-if="recipe.photoPath"
           :src="`/photos/${recipe.photoPath}?w=200&f=webp`"
           :alt="recipe.name"
+          width="80"
+          height="80"
           class="size-20 rounded-xl object-cover shadow-sm"
           :style="{ viewTransitionName: `recipe-photo-${recipe.id}` }"
           :loading="idx >= 10 ? 'lazy' : undefined"
@@ -86,7 +88,7 @@ function onFilter(f: { search: string; tag: string }) {
         <h3 class="text-base font-bold leading-tight text-slate-900">{{ recipe.name }}</h3>
         <div class="flex items-center gap-2 mt-1" v-if="recipe.totalTime || recipe.difficulty">
           <span v-if="recipe.totalTime" class="text-slate-500 text-xs flex items-center gap-1">
-            <span class="material-symbols-outlined text-sm">schedule</span> {{ recipe.totalTime }}
+            <span aria-hidden="true" class="material-symbols-outlined text-sm">schedule</span> {{ recipe.totalTime }}
           </span>
           <span v-if="recipe.totalTime && recipe.difficulty" class="text-slate-300">&bull;</span>
           <span v-if="recipe.difficulty" class="text-slate-500 text-xs">{{ recipe.difficulty }}</span>
@@ -103,7 +105,7 @@ function onFilter(f: { search: string; tag: string }) {
 
       <!-- Chevron -->
       <div class="shrink-0 text-slate-400">
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span aria-hidden="true" class="material-symbols-outlined">chevron_right</span>
       </div>
     </a>
 

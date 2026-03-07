@@ -39,7 +39,7 @@ function toggleSearch() {
     <div v-if="showSearch" class="px-0 pb-3">
       <div class="flex items-stretch rounded-xl bg-white border border-slate-100 overflow-hidden">
         <div class="flex items-center justify-center pl-3 text-slate-400">
-          <span class="material-symbols-outlined text-xl">search</span>
+          <span aria-hidden="true" class="material-symbols-outlined text-xl">search</span>
         </div>
         <input
           v-model="search"
@@ -50,7 +50,7 @@ function toggleSearch() {
           autofocus
         />
         <button @click="toggleSearch" class="px-3 text-slate-400 hover:text-slate-600">
-          <span class="material-symbols-outlined text-xl">close</span>
+          <span aria-hidden="true" class="material-symbols-outlined text-xl">close</span>
         </button>
       </div>
     </div>
@@ -59,10 +59,12 @@ function toggleSearch() {
     <div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
       <button
         @click="toggleSearch"
+        :aria-expanded="showSearch"
+        aria-label="Buscar"
         class="flex h-9 shrink-0 items-center justify-center rounded-full px-3 transition-colors"
         :class="showSearch ? 'bg-primary text-white' : 'bg-slate-100 text-slate-700'"
       >
-        <span class="material-symbols-outlined text-xl">search</span>
+        <span aria-hidden="true" class="material-symbols-outlined text-xl">search</span>
       </button>
       <button
         v-for="tag in sortedTags"

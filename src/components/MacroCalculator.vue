@@ -40,7 +40,7 @@ const macros = computed(() => ({
           @click="decrement"
           class="size-8 flex items-center justify-center text-primary rounded-full hover:bg-primary/10 transition-colors"
         >
-          <span class="material-symbols-outlined">remove</span>
+          <span aria-hidden="true" class="material-symbols-outlined">remove</span>
         </button>
         <input
           v-model.number="weight"
@@ -53,7 +53,7 @@ const macros = computed(() => ({
           @click="increment"
           class="size-8 flex items-center justify-center bg-primary text-white rounded-full hover:bg-primary-dark transition-colors"
         >
-          <span class="material-symbols-outlined">add</span>
+          <span aria-hidden="true" class="material-symbols-outlined">add</span>
         </button>
       </div>
     </div>

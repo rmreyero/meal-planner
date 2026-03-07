@@ -42,18 +42,18 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="fixed inset-0 bg-black/40 z-50 flex items-end sm:items-center justify-center" @click.self="emit('cancel')">
+  <div class="fixed inset-0 bg-black/40 z-50 flex items-end sm:items-center justify-center" role="dialog" aria-modal="true" aria-label="Elegir receta" @click.self="emit('cancel')">
     <div class="bg-white rounded-t-2xl sm:rounded-xl w-full sm:max-w-md max-h-[70vh] flex flex-col shadow-xl">
       <div class="p-4 border-b border-slate-100">
         <div class="flex justify-between items-center mb-3">
           <h3 class="font-extrabold text-lg">Elegir receta</h3>
           <button @click="emit('cancel')" class="flex size-8 items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
-            <span class="material-symbols-outlined text-slate-400">close</span>
+            <span aria-hidden="true" class="material-symbols-outlined text-slate-400">close</span>
           </button>
         </div>
         <div class="flex items-stretch rounded-xl bg-bg border border-border overflow-hidden">
           <div class="flex items-center justify-center pl-3 text-slate-400">
-            <span class="material-symbols-outlined text-xl">search</span>
+            <span aria-hidden="true" class="material-symbols-outlined text-xl">search</span>
           </div>
           <input
             ref="searchInput"

@@ -41,7 +41,7 @@ defineExpose({ show });
       ]"
       @click="dismiss(toast.id)"
     >
-      <span class="material-symbols-outlined text-lg">
+      <span aria-hidden="true" class="material-symbols-outlined text-lg">
         {{ toast.type === 'error' ? 'error' : 'check_circle' }}
       </span>
       {{ toast.message }}

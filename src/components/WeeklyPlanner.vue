@@ -265,22 +265,25 @@ async function saveLabel(entry: MealEntry, label: string) {
   <!-- Week nav -->
   <div class="flex items-center justify-between mb-4">
     <button @click="shiftWeek(-1)" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
-      <span class="material-symbols-outlined text-slate-500">chevron_left</span>
+      <span aria-hidden="true" class="material-symbols-outlined text-slate-500">chevron_left</span>
     </button>
     <div class="flex flex-col items-center">
       <span class="text-sm font-bold">{{ weekDisplay }}</span>
     </div>
     <button @click="shiftWeek(1)" class="p-2 hover:bg-slate-100 rounded-lg transition-colors">
-      <span class="material-symbols-outlined text-slate-500">chevron_right</span>
+      <span aria-hidden="true" class="material-symbols-outlined text-slate-500">chevron_right</span>
     </button>
   </div>
 
   <!-- Day tabs -->
-  <div class="flex gap-1 mb-4">
+  <div class="flex gap-1 mb-4" role="tablist" aria-label="Dias de la semana">
     <button
       v-for="(label, idx) in DAY_LABELS"
       :key="idx"
       @click="activeDay = idx"
+      role="tab"
+      :aria-selected="activeDay === idx"
+      :aria-label="DAY_NAMES[idx]"
       class="flex-1 py-2 text-center text-sm rounded-lg font-bold relative transition-all"
       :class="activeDay === idx
         ? 'bg-primary text-white shadow-md shadow-primary/20'
@@ -305,7 +308,7 @@ async function saveLabel(entry: MealEntry, label: string) {
         ? 'bg-orange-500 text-white'
         : 'bg-slate-200 text-slate-500 hover:bg-slate-300'"
     >
-      <span class="material-symbols-outlined text-sm">{{ isTrainingDay ? 'fitness_center' : 'weekend' }}</span>
+      <span aria-hidden="true" class="material-symbols-outlined text-sm">{{ isTrainingDay ? 'fitness_center' : 'weekend' }}</span>
       {{ isTrainingDay ? 'Entreno' : 'Descanso' }}
     </button>
   </div>
@@ -345,7 +348,7 @@ async function saveLabel(entry: MealEntry, label: string) {
           </a>
         </div>
         <button @click="removeEntry(entry.id)" class="text-slate-300 hover:text-red-400 p-1 shrink-0 transition-colors">
-          <span class="material-symbols-outlined text-lg">close</span>
+          <span aria-hidden="true" class="material-symbols-outlined text-lg">close</span>
         </button>
       </div>
 
@@ -396,7 +399,7 @@ async function saveLabel(entry: MealEntry, label: string) {
       @click="showPicker = true"
       class="w-full rounded-xl border-2 border-dashed border-slate-200 py-4 text-sm text-slate-400 hover:border-primary/40 hover:text-primary font-bold transition-colors flex items-center justify-center gap-1"
     >
-      <span class="material-symbols-outlined text-lg">add_circle</span>
+      <span aria-hidden="true" class="material-symbols-outlined text-lg">add_circle</span>
       Anadir comida
     </button>
   </div>

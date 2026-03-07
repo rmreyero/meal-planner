@@ -1,10 +1,12 @@
 ---
 interface Props {
   title: string;
+  description?: string;
   hideMobileHeader?: boolean;
 }
 
-const { title, hideMobileHeader = false } = Astro.props;
+const { title, description = 'Planifica tus comidas y controla tus macros.', hideMobileHeader = false } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 
 const navItems = [
   { href: '/', label: 'Recetas', icon: 'menu_book' },
@@ -21,6 +23,8 @@ const currentPath = Astro.url.pathname;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL.href} />
+    <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
@@ -28,11 +32,12 @@ const currentPath = Astro.url.pathname;
     <title>{title} | Meal Planner</title>
   </head>
   <body class="bg-bg text-slate-900 min-h-screen pb-20 md:pb-0">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-bold">Saltar al contenido</a>
     <!-- Mobile top bar -->
     <header class:list={["md:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-primary/10 px-4 py-2.5", hideMobileHeader && "hidden"]}>
       <a href="/" class="flex items-center gap-2">
         <div class="bg-primary p-1 rounded-md text-white">
-          <span class="material-symbols-outlined text-lg">restaurant</span>
+          <span aria-hidden="true" class="material-symbols-outlined text-lg">restaurant</span>
         </div>
         <span class="text-base font-extrabold tracking-tight">Meal <span class="text-primary">Planner</span></span>
       </a>
@@ -43,7 +48,7 @@ const currentPath = Astro.url.pathname;
       <div class="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
         <a href="/" class="flex items-center gap-2.5">
           <div class="bg-primary p-1.5 rounded-lg text-white">
-            <span class="material-symbols-outlined text-xl">restaurant</span>
+            <span aria-hidden="true" class="material-symbols-outlined text-xl">restaurant</span>
           </div>
           <span class="text-lg font-extrabold tracking-tight">Meal <span class="text-primary">Planner</span></span>
         </a>
@@ -60,7 +65,7 @@ const currentPath = Astro.url.pathname;
                     : 'text-slate-500 hover:text-primary',
                 ]}
               >
-                <span class="material-symbols-outlined text-lg">{icon}</span>
+                <span aria-hidden="true" class="material-symbols-outlined text-lg">{icon}</span>
                 {label}
               </a>
             );
@@ -69,7 +74,7 @@ const currentPath = Astro.url.pathname;
       </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 py-6">
+    <main id="main" class="max-w-5xl mx-auto px-4 py-6">
       <slot />
     </main>
 
@@ -86,7 +91,7 @@ const currentPath = Astro.url.pathname;
                 isActive ? 'text-primary' : 'text-slate-400',
               ]}
             >
-              <span class="material-symbols-outlined">{icon}</span>
+              <span aria-hidden="true" class="material-symbols-outlined">{icon}</span>
               <span class="text-[10px] font-bold uppercase tracking-widest">{label}</span>
             </a>
           );

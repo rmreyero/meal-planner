@@ -69,7 +69,7 @@ const FIELDS = [
       class="bg-white rounded-xl border border-border p-5 shadow-sm"
     >
       <h3 class="font-extrabold text-lg mb-4 flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary">{{ ICONS[type] }}</span>
+        <span aria-hidden="true" class="material-symbols-outlined text-primary">{{ ICONS[type] }}</span>
         {{ LABELS[type] }}
       </h3>
 
