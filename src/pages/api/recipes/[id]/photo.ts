@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import { requireAuth } from '../../../../lib/auth';
-import { json, errorResponse } from '../../../../lib/api';
-import { getRecipeById, setRecipePhoto } from '../../../../services/recipes';
+import { requireAuth } from '@/lib/auth';
+import { json, errorResponse } from '@/lib/api';
+import { getRecipeById, setRecipePhoto } from '@/services/recipes';
 
 const PHOTOS_DIR = join(process.cwd(), 'data', 'photos');
 

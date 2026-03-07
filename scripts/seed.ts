@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { db, schema } from '../db/index';
+import { db, schema } from '@db/index';
 
 interface SeedRecipe {
   name: string;

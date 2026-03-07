@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import RecipeList from '../components/RecipeList.vue';
-import { listRecipeSummaries } from '../services/recipes';
+import Layout from '@/layouts/Layout.astro';
+import RecipeList from '@/components/RecipeList.vue';
+import { listRecipeSummaries } from '@/services/recipes';
 
 const recipes = listRecipeSummaries();
 ---

@@ -1,15 +1,15 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import MacroCalculator from '../../components/MacroCalculator.vue';
-import FavoriteButton from '../../components/FavoriteButton.vue';
-import PhotoUpload from '../../components/PhotoUpload.vue';
+import Layout from '@/layouts/Layout.astro';
+import MacroCalculator from '@/components/MacroCalculator.vue';
+import FavoriteButton from '@/components/FavoriteButton.vue';
+import PhotoUpload from '@/components/PhotoUpload.vue';
 import IconArrowBack from '~icons/material-symbols/arrow-back';
 import IconRestaurant from '~icons/material-symbols/restaurant';
 import IconShoppingBasket from '~icons/material-symbols/shopping-basket-outline';
 import IconLightbulb from '~icons/material-symbols/lightbulb-outline';
 import IconOpenInNew from '~icons/material-symbols/open-in-new';
-import type { IngredientGroup } from '../../../db/schema';
-import { getRecipeBySlug } from '../../services/recipes';
+import type { IngredientGroup } from '@db/schema';
+import { getRecipeBySlug } from '@/services/recipes';
 
 const { slug } = Astro.params;
 

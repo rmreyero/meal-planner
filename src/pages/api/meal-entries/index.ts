@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { json, errorResponse, parseBody } from '../../../lib/api';
-import { createMealEntry } from '../../../services/meal-entries';
+import { json, errorResponse, parseBody } from '@/lib/api';
+import { createMealEntry } from '@/services/meal-entries';
 
 export const POST: APIRoute = async ({ request }) => {
   const body = await parseBody(request);

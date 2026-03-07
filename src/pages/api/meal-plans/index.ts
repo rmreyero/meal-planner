@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { json, errorResponse } from '../../../lib/api';
-import { getOrCreateWeekPlan } from '../../../services/meal-plans';
+import { json, errorResponse } from '@/lib/api';
+import { getOrCreateWeekPlan } from '@/services/meal-plans';
 
 export const GET: APIRoute = async ({ url }) => {
   const week = url.searchParams.get('week');

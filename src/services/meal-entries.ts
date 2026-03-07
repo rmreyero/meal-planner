@@ -1,7 +1,7 @@
-import { db, schema } from '../../db/index';
+import { db, schema } from '@db/index';
 import { eq } from 'drizzle-orm';
 import { ok, err, type Result } from './types';
-import type { MealEntry } from '../../db/schema';
+import type { MealEntry } from '@db/schema';
 
 interface CreateMealEntryData {
   mealPlanId: number;

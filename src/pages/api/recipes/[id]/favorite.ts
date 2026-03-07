@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { json, errorResponse } from '../../../../lib/api';
-import { toggleFavorite } from '../../../../services/recipes';
+import { json, errorResponse } from '@/lib/api';
+import { toggleFavorite } from '@/services/recipes';
 
 export const PATCH: APIRoute = async ({ params }) => {
   const id = Number(params.id);

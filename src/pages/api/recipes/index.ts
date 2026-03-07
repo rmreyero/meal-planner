@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
-import { requireAuth } from '../../../lib/auth';
-import { json, errorResponse, parseBody } from '../../../lib/api';
-import { downloadPhoto } from '../../../lib/photo';
-import { listRecipes, createRecipe, setRecipePhoto } from '../../../services/recipes';
+import { requireAuth } from '@/lib/auth';
+import { json, errorResponse, parseBody } from '@/lib/api';
+import { downloadPhoto } from '@/lib/photo';
+import { listRecipes, createRecipe, setRecipePhoto } from '@/services/recipes';
 
 export const GET: APIRoute = async ({ url }) => {
   const tag = url.searchParams.get('tag') ?? undefined;

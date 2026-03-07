@@ -1,6 +1,6 @@
-import { db, schema } from '../../db/index';
+import { db, schema } from '@db/index';
 import { eq } from 'drizzle-orm';
-import type { MacroTarget } from '../../db/schema';
+import type { MacroTarget } from '@db/schema';
 
 export function getAllTargets(): MacroTarget[] {
   const targets = db.select().from(schema.macroTargets).all();

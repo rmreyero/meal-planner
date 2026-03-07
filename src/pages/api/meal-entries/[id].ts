@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { json, errorResponse, parseBody, parseId } from '../../../lib/api';
-import { updateMealEntry, deleteMealEntry } from '../../../services/meal-entries';
+import { json, errorResponse, parseBody, parseId } from '@/lib/api';
+import { updateMealEntry, deleteMealEntry } from '@/services/meal-entries';
 
 export const PUT: APIRoute = async ({ params, request }) => {
   const id = parseId(params.id);

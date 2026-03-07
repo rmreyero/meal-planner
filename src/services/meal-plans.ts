@@ -1,4 +1,4 @@
-import { db, schema } from '../../db/index';
+import { db, schema } from '@db/index';
 import { eq } from 'drizzle-orm';
 
 export function getOrCreateWeekPlan(weekStart: string) {

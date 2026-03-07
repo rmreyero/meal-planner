@@ -1,8 +1,8 @@
-import { db, schema } from '../../db/index';
+import { db, schema } from '@db/index';
 import { like, and, sql, eq } from 'drizzle-orm';
-import { slugify } from '../lib/slug';
+import { slugify } from '@/lib/slug';
 import { ok, err, type Result } from './types';
-import type { Recipe } from '../../db/schema';
+import type { Recipe } from '@db/schema';
 
 export function listRecipes(opts?: { tag?: string; search?: string }): Recipe[] {
   const conditions = [];

@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
-import { requireAuth } from '../../../../lib/auth';
-import { json, errorResponse, parseBody, parseId } from '../../../../lib/api';
-import { downloadPhoto } from '../../../../lib/photo';
-import { getRecipeById, updateRecipe } from '../../../../services/recipes';
+import { requireAuth } from '@/lib/auth';
+import { json, errorResponse, parseBody, parseId } from '@/lib/api';
+import { downloadPhoto } from '@/lib/photo';
+import { getRecipeById, updateRecipe } from '@/services/recipes';
 
 export const GET: APIRoute = async ({ params }) => {
   const id = parseId(params.id);

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { json, errorResponse, parseBody } from '../../../lib/api';
-import { upsertTarget } from '../../../services/macro-targets';
+import { json, errorResponse, parseBody } from '@/lib/api';
+import { upsertTarget } from '@/services/macro-targets';
 
 const VALID_TYPES = ['training', 'rest'];
 
