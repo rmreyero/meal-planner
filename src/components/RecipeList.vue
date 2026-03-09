@@ -4,6 +4,7 @@ import RecipeFilters from './RecipeFilters.vue';
 import IconFavorite from '~icons/material-symbols/favorite-rounded';
 import IconSchedule from '~icons/material-symbols/schedule-outline';
 import IconChevronRight from '~icons/material-symbols/chevron-right';
+import BaseBadge from './ui/BaseBadge.vue';
 
 interface Recipe {
   id: number;
@@ -97,12 +98,12 @@ function onFilter(f: { search: string; tag: string }) {
           <span v-if="recipe.difficulty" class="text-slate-500 text-xs">{{ recipe.difficulty }}</span>
         </div>
         <div class="flex items-center gap-2 mt-1">
-          <span v-if="recipe.baseCalories" class="text-primary text-xs font-bold bg-primary/10 px-2 py-0.5 rounded-full">
+          <BaseBadge v-if="recipe.baseCalories" size="sm">
             {{ Math.round(recipe.baseCalories) }} Kcal
-          </span>
-          <span v-if="recipe.baseProtein" class="text-slate-700 text-xs font-bold bg-slate-100 px-2 py-0.5 rounded-full">
+          </BaseBadge>
+          <BaseBadge v-if="recipe.baseProtein" variant="secondary" size="sm">
             {{ recipe.baseProtein }}g Prot
-          </span>
+          </BaseBadge>
         </div>
       </div>
 

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import BaseCard from './ui/BaseCard.vue';
+import SectionHeading from './ui/SectionHeading.vue';
 import Toast from './Toast.vue';
 import IconFitnessCenter from '~icons/material-symbols/fitness-center';
 import IconWeekend from '~icons/material-symbols/weekend-outline';
@@ -64,16 +66,17 @@ const FIELDS = [
 <template>
   <Toast ref="toast" />
   <div class="space-y-6">
-    <div
+    <BaseCard
       v-for="type in ['training', 'rest']"
       :key="type"
-      class="bg-white rounded-xl border border-border p-5 shadow-sm"
     >
-      <h3 class="font-extrabold text-lg mb-4 flex items-center gap-2">
-        <IconFitnessCenter v-if="type === 'training'" class="w-6 h-6 text-primary" />
-        <IconWeekend v-else class="w-6 h-6 text-primary" />
+      <SectionHeading :level="3">
+        <template #icon>
+          <IconFitnessCenter v-if="type === 'training'" class="w-6 h-6" />
+          <IconWeekend v-else class="w-6 h-6" />
+        </template>
         {{ LABELS[type] }}
-      </h3>
+      </SectionHeading>
 
       <div v-if="profiles[type]" class="space-y-3">
         <div v-for="field in FIELDS" :key="field.key" class="flex items-center gap-3">
@@ -97,6 +100,6 @@ const FIELDS = [
       </div>
 
       <div v-else class="text-sm text-slate-400 py-4 text-center">Cargando...</div>
-    </div>
+    </BaseCard>
   </div>
 </template>

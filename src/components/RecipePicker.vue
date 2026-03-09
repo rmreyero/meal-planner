@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import BaseSearchInput from './ui/BaseSearchInput.vue';
 import IconClose from '~icons/material-symbols/close';
-import IconSearch from '~icons/material-symbols/search';
+
 
 interface RecipeOption {
   id: number;
@@ -21,7 +22,6 @@ const emit = defineEmits<{
 }>();
 
 const search = ref('');
-const searchInput = ref<HTMLInputElement | null>(null);
 
 const filtered = computed(() => {
   if (!search.value) return props.recipes;
@@ -35,7 +35,6 @@ function onKeydown(e: KeyboardEvent) {
 
 onMounted(() => {
   document.addEventListener('keydown', onKeydown);
-  searchInput.value?.focus();
 });
 
 onUnmounted(() => {
@@ -53,18 +52,10 @@ onUnmounted(() => {
             <IconClose class="w-6 h-6 text-slate-400" />
           </button>
         </div>
-        <div class="flex items-stretch rounded-xl bg-bg border border-border overflow-hidden">
-          <div class="flex items-center justify-center pl-3 text-slate-400">
-            <IconSearch class="w-5 h-5" />
-          </div>
-          <input
-            ref="searchInput"
-            v-model="search"
-            type="search"
-            placeholder="Buscar..."
-            class="flex-1 border-none bg-transparent px-3 py-2.5 text-base outline-none placeholder:text-slate-400"
-          />
-        </div>
+        <BaseSearchInput
+          v-model="search"
+          placeholder="Buscar..."
+        />
       </div>
       <div class="overflow-y-auto flex-1">
         <button

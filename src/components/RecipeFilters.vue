@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import BaseSearchInput from './ui/BaseSearchInput.vue';
 import IconSearch from '~icons/material-symbols/search';
-import IconClose from '~icons/material-symbols/close';
 
 const props = defineProps<{
   tags: string[];
@@ -39,22 +39,14 @@ function toggleSearch() {
   <div class="space-y-0">
     <!-- Search bar -->
     <div v-if="showSearch" class="px-0 pb-3">
-      <div class="flex items-stretch rounded-xl bg-white border border-slate-100 overflow-hidden">
-        <div class="flex items-center justify-center pl-3 text-slate-400">
-          <IconSearch class="w-5 h-5" />
-        </div>
-        <input
-          v-model="search"
-          @input="onFilter"
-          type="search"
-          placeholder="Buscar recetas..."
-          class="flex-1 border-none bg-transparent px-3 py-2.5 text-base outline-none placeholder:text-slate-400"
-          autofocus
-        />
-        <button @click="toggleSearch" class="px-3 text-slate-400 hover:text-slate-600">
-          <IconClose class="w-5 h-5" />
-        </button>
-      </div>
+      <BaseSearchInput
+        v-model="search"
+        @update:model-value="onFilter"
+        placeholder="Buscar recetas..."
+        :show-close="true"
+        @close="toggleSearch"
+        autofocus
+      />
     </div>
 
     <!-- Horizontal scrolling tags -->

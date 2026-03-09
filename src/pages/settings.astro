@@ -1,14 +1,15 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import MacroTargetsForm from '@/components/MacroTargetsForm.vue';
+import SectionHeading from '@/components/ui/SectionHeading.vue';
 import IconTarget from '~icons/material-symbols/target';
 ---
 
 <Layout title="Ajustes">
   <h1 class="text-2xl font-extrabold tracking-tight mb-6">Ajustes</h1>
-  <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-    <IconTarget class="w-6 h-6 text-primary" />
+  <SectionHeading>
+    <IconTarget slot="icon" class="w-6 h-6" />
     Objetivos de macros
-  </h2>
+  </SectionHeading>
   <MacroTargetsForm client:idle />
 </Layout>

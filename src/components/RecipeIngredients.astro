@@ -1,0 +1,33 @@
+---
+import SectionHeading from '@/components/ui/SectionHeading.vue';
+import IconShoppingBasket from '~icons/material-symbols/shopping-basket-outline';
+import type { IngredientGroup } from '@db/schema';
+
+interface Props {
+  ingredients: IngredientGroup[];
+}
+
+const { ingredients } = Astro.props;
+---
+
+<section class="bg-white rounded-t-3xl md:rounded-xl shadow-inner md:shadow-sm p-6 -mx-4 md:mx-0 md:border md:border-slate-200">
+  <SectionHeading>
+    <IconShoppingBasket slot="icon" class="w-6 h-6" />
+    Ingredientes
+  </SectionHeading>
+  {ingredients.map((group) => (
+    <div class="mb-4 last:mb-0">
+      {group.group && (
+        <h3 class="text-xs font-bold text-primary uppercase tracking-wider mb-3">{group.group}</h3>
+      )}
+      <div class="space-y-4">
+        {group.items.map((item) => (
+          <label class="flex items-center gap-3 group cursor-pointer">
+            <input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary size-5 shrink-0" />
+            <span class="text-slate-700 font-medium text-sm group-has-checked:line-through group-has-checked:text-slate-400 transition-colors">{item}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  ))}
+</section>

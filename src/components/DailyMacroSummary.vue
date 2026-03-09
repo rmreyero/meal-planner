@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import BaseCard from './ui/BaseCard.vue';
 
 interface Macros {
   calories: number;
@@ -40,7 +41,7 @@ function barColor(actual: number, target: number | undefined): string {
 </script>
 
 <template>
-  <div class="bg-primary/5 rounded-xl border border-primary/20 p-4 space-y-2.5">
+  <BaseCard variant="highlight" class="space-y-2.5">
     <p class="text-[10px] font-black text-primary uppercase text-center mb-1">Total Diario</p>
     <div v-for="f in fields" :key="f.label" class="flex items-center gap-2">
       <span class="text-xs text-slate-500 w-10 shrink-0 font-bold">{{ f.label }}</span>
@@ -60,5 +61,5 @@ function barColor(actual: number, target: number | undefined): string {
         <span v-if="f.target" class="text-slate-400 font-medium">/ {{ f.target }}{{ f.unit || '' }}</span>
       </span>
     </div>
-  </div>
+  </BaseCard>
 </template>

@@ -2,12 +2,13 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import RecipePicker from './RecipePicker.vue';
 import DailyMacroSummary from './DailyMacroSummary.vue';
+import MealEntryCard from './MealEntryCard.vue';
+import DayTabs from './DayTabs.vue';
 import Toast from './Toast.vue';
 import IconChevronLeft from '~icons/material-symbols/chevron-left';
 import IconChevronRight from '~icons/material-symbols/chevron-right';
 import IconFitnessCenter from '~icons/material-symbols/fitness-center';
 import IconWeekend from '~icons/material-symbols/weekend-outline';
-import IconClose from '~icons/material-symbols/close';
 import IconAddCircle from '~icons/material-symbols/add-circle-outline';
 
 interface MacroTarget {
@@ -18,7 +19,6 @@ interface MacroTarget {
   fat: number;
 }
 
-const DAY_LABELS = ['L', 'M', 'X', 'J', 'V', 'S', 'D'] as const;
 const DAY_NAMES = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'] as const;
 
 const SLOT_SCHEMES: Record<number, string[]> = {
@@ -93,12 +93,6 @@ const weekDisplay = computed(() => {
   const fmt = (d: Date) => `${d.getDate()} ${d.toLocaleDateString('es', { month: 'short' })}`;
   return `${fmt(start)} – ${fmt(end)}`;
 });
-
-function dayDate(dayIdx: number): string {
-  const d = new Date(weekStart.value + 'T00:00:00');
-  d.setDate(d.getDate() + dayIdx);
-  return `${d.getDate()}`;
-}
 
 const dayEntries = computed(() =>
   entries.value
@@ -282,27 +276,11 @@ async function saveLabel(entry: MealEntry, label: string) {
   </div>
 
   <!-- Day tabs -->
-  <div class="flex gap-1 mb-4" role="tablist" aria-label="Dias de la semana">
-    <button
-      v-for="(label, idx) in DAY_LABELS"
-      :key="idx"
-      @click="activeDay = idx"
-      role="tab"
-      :aria-selected="activeDay === idx"
-      :aria-label="DAY_NAMES[idx]"
-      class="flex-1 py-2 text-center text-sm rounded-lg font-bold relative transition-all"
-      :class="activeDay === idx
-        ? 'bg-primary text-white shadow-md shadow-primary/20'
-        : 'bg-slate-200 text-slate-500 hover:bg-slate-300'"
-    >
-      <div>{{ label }}</div>
-      <div class="text-[10px]" :class="activeDay === idx ? 'text-white/70' : 'text-slate-400'">{{ dayDate(idx) }}</div>
-      <div
-        v-if="dayHasEntries(idx) && activeDay !== idx"
-        class="absolute -top-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-sm shadow-primary/40"
-      ></div>
-    </button>
-  </div>
+  <DayTabs
+    v-model:active-day="activeDay"
+    :week-start="weekStart"
+    :has-entries="dayHasEntries"
+  />
 
   <!-- Day name + training toggle -->
   <div class="flex items-center justify-between mb-3">
@@ -325,74 +303,17 @@ async function saveLabel(entry: MealEntry, label: string) {
 
   <!-- Entries -->
   <div v-else class="space-y-3">
-    <div
+    <MealEntryCard
       v-for="entry in dayEntries"
       :key="entry.id"
-      class="bg-white rounded-xl border border-border p-3 shadow-sm hover:border-primary/30 transition-all"
-    >
-      <div class="flex items-start justify-between mb-2">
-        <div class="min-w-0">
-          <!-- Editable slot label -->
-          <div v-if="editingLabel === entry.id" class="mb-1">
-            <input
-              :value="entry.slotLabel || resolvedLabel(entry)"
-              @blur="saveLabel(entry, ($event.target as HTMLInputElement).value)"
-              @keyup.enter="($event.target as HTMLInputElement).blur()"
-              class="text-base font-black uppercase text-primary bg-primary/10 rounded-lg px-2 py-1 outline-none border border-primary/20 w-28"
-              autofocus
-            />
-          </div>
-          <button
-            v-else
-            @click="editingLabel = entry.id"
-            class="text-[10px] font-black uppercase text-primary mb-1 hover:underline"
-          >
-            {{ resolvedLabel(entry) }}
-          </button>
-
-          <a :href="`/recipes/${entry.recipeSlug}`" class="block text-sm font-bold hover:text-primary transition-colors">
-            {{ entry.recipeName }}
-          </a>
-        </div>
-        <button @click="removeEntry(entry.id)" class="text-slate-300 hover:text-red-400 p-1 shrink-0 transition-colors">
-          <IconClose class="w-5 h-5" />
-        </button>
-      </div>
-
-      <!-- Portion weight -->
-      <div v-if="entry.basePortionWeight" class="flex items-center gap-2 mb-2">
-        <label class="text-xs text-slate-400 shrink-0 font-bold">g</label>
-        <input
-          :value="entry.portionWeight || entry.basePortionWeight"
-          @change="updatePortion(entry, Number(($event.target as HTMLInputElement).value))"
-          type="number"
-          min="10"
-          step="10"
-          class="w-20 rounded-lg border border-border px-1.5 py-0.5 text-base text-center font-bold outline-none focus:border-primary transition-colors"
-        />
-        <div class="flex-1 flex items-center gap-1">
-          <span class="text-[10px] text-slate-400">{{ Math.round(entry.basePortionWeight * 0.25) }}g</span>
-          <input
-            :value="entry.portionWeight || entry.basePortionWeight"
-            @input="updatePortion(entry, Number(($event.target as HTMLInputElement).value))"
-            type="range"
-            :min="Math.round(entry.basePortionWeight * 0.25)"
-            :max="Math.round(entry.basePortionWeight * 3)"
-            step="5"
-            class="flex-1"
-          />
-          <span class="text-[10px] text-slate-400">{{ Math.round(entry.basePortionWeight * 3) }}g</span>
-        </div>
-      </div>
-
-      <!-- Macros -->
-      <div v-if="entryMacros(entry)" class="flex gap-3 text-[11px] font-medium text-slate-500">
-        <span>{{ entryMacros(entry)!.calories }} kcal</span>
-        <span class="text-primary font-bold">{{ entryMacros(entry)!.protein }}g P</span>
-        <span>{{ entryMacros(entry)!.carbs }}g HC</span>
-        <span>{{ entryMacros(entry)!.fat }}g G</span>
-      </div>
-    </div>
+      :entry="entry"
+      :label="resolvedLabel(entry)"
+      :is-editing-label="editingLabel === entry.id"
+      @remove="removeEntry"
+      @update:portion="updatePortion"
+      @edit-label="editingLabel = $event"
+      @save-label="saveLabel"
+    />
 
     <!-- Daily macro summary -->
     <DailyMacroSummary

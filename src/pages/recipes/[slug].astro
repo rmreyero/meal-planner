@@ -4,10 +4,12 @@ import MacroCalculator from '@/components/MacroCalculator.vue';
 import FavoriteButton from '@/components/FavoriteButton.vue';
 import PhotoUpload from '@/components/PhotoUpload.vue';
 import IconArrowBack from '~icons/material-symbols/arrow-back';
-import IconRestaurant from '~icons/material-symbols/restaurant';
-import IconShoppingBasket from '~icons/material-symbols/shopping-basket-outline';
 import IconLightbulb from '~icons/material-symbols/lightbulb-outline';
 import IconOpenInNew from '~icons/material-symbols/open-in-new';
+import MacroStatCard from '@/components/ui/MacroStatCard.vue';
+import BaseBadge from '@/components/ui/BaseBadge.vue';
+import RecipeInstructions from '@/components/RecipeInstructions.astro';
+import RecipeIngredients from '@/components/RecipeIngredients.astro';
 import type { IngredientGroup } from '@db/schema';
 import { getRecipeBySlug } from '@/services/recipes';
 
@@ -35,7 +37,6 @@ const timeItems = [
   recipe.totalTime && { label: 'Total', value: recipe.totalTime },
 ].filter(Boolean) as { label: string; value: string }[];
 
-let stepCounter = 0;
 ---
 
 <Layout title={recipe.name} hideMobileHeader>
@@ -65,14 +66,10 @@ let stepCounter = 0;
 
         <div class="flex flex-wrap gap-2 mt-3">
           {tags.map((tag) => (
-            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase tracking-wider">
-              {tag}
-            </span>
+            <BaseBadge>{tag}</BaseBadge>
           ))}
           {recipe.difficulty && (
-            <span class="px-3 py-1 bg-slate-200 text-slate-600 rounded-full text-xs font-bold">
-              {recipe.difficulty}
-            </span>
+            <BaseBadge variant="secondary">{recipe.difficulty}</BaseBadge>
           )}
           {recipe.sourceName && (
             <a
@@ -116,80 +113,19 @@ let stepCounter = 0;
         </div>
       ) : recipe.baseCalories && (
         <div class="grid grid-cols-4 gap-3 py-6">
-          <div class="bg-white p-3 rounded-xl flex flex-col items-center shadow-sm border border-slate-100">
-            <span class="text-primary text-xs font-bold">Calorias</span>
-            <span class="text-lg font-extrabold">{Math.round(recipe.baseCalories)}</span>
-            <span class="text-[10px] text-slate-500 uppercase">kcal</span>
-          </div>
-          <div class="bg-white p-3 rounded-xl flex flex-col items-center shadow-sm border border-slate-100">
-            <span class="text-primary text-xs font-bold">Proteina</span>
-            <span class="text-lg font-extrabold">{recipe.baseProtein}g</span>
-            <span class="text-[10px] text-slate-500 uppercase">prot</span>
-          </div>
-          <div class="bg-white p-3 rounded-xl flex flex-col items-center shadow-sm border border-slate-100">
-            <span class="text-primary text-xs font-bold">HC</span>
-            <span class="text-lg font-extrabold">{recipe.baseCarbs}g</span>
-            <span class="text-[10px] text-slate-500 uppercase">carbs</span>
-          </div>
-          <div class="bg-white p-3 rounded-xl flex flex-col items-center shadow-sm border border-slate-100">
-            <span class="text-primary text-xs font-bold">Grasas</span>
-            <span class="text-lg font-extrabold">{recipe.baseFat}g</span>
-            <span class="text-[10px] text-slate-500 uppercase">fat</span>
-          </div>
+          <MacroStatCard label="Calorias" value={Math.round(recipe.baseCalories)} unit="kcal" />
+          <MacroStatCard label="Proteina" value={`${recipe.baseProtein}g`} unit="prot" />
+          <MacroStatCard label="HC" value={`${recipe.baseCarbs}g`} unit="carbs" />
+          <MacroStatCard label="Grasas" value={`${recipe.baseFat}g`} unit="fat" />
         </div>
       )}
 
-      <!-- Instructions -->
-      <section class="py-8">
-        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-          <IconRestaurant class="w-6 h-6 text-primary" />
-          Paso a Paso
-        </h2>
-        <div class="space-y-8">
-          {instructions.map((step) => {
-            if (step.startsWith('[')) {
-              return (
-                <h3 class="font-bold text-primary mt-2">{step.replace(/[\[\]]/g, '')}</h3>
-              );
-            }
-            stepCounter++;
-            return (
-              <div class="flex gap-4">
-                <span class="flex-shrink-0 size-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm shadow-sm shadow-primary/30">
-                  {stepCounter}
-                </span>
-                <p class="text-slate-600 text-sm leading-relaxed pt-1">{step}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <RecipeInstructions instructions={instructions} />
     </div>
 
     <!-- Right column -->
     <div class="md:col-span-4 space-y-6">
-      <!-- Ingredients -->
-      <section class="bg-white rounded-t-3xl md:rounded-xl shadow-inner md:shadow-sm p-6 -mx-4 md:mx-0 md:border md:border-slate-200">
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-          <IconShoppingBasket class="w-6 h-6 text-primary" />
-          Ingredientes
-        </h2>
-        {ingredients.map((group) => (
-          <div class="mb-4 last:mb-0">
-            {group.group && (
-              <h3 class="text-xs font-bold text-primary uppercase tracking-wider mb-3">{group.group}</h3>
-            )}
-            <div class="space-y-4">
-              {group.items.map((item) => (
-                <label class="flex items-center gap-3 group cursor-pointer">
-                  <input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary size-5 shrink-0" />
-                  <span class="text-slate-700 font-medium text-sm group-has-checked:line-through group-has-checked:text-slate-400 transition-colors">{item}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
+      <RecipeIngredients ingredients={ingredients} />
 
       <!-- Notes -->
       {notes && notes.length > 0 && (

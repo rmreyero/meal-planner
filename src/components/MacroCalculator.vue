@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import MacroStatCard from './ui/MacroStatCard.vue';
 import IconRemove from '~icons/material-symbols/remove';
 import IconAdd from '~icons/material-symbols/add';
 
@@ -62,26 +63,10 @@ const macros = computed(() => ({
 
     <!-- Macro grid -->
     <div class="grid grid-cols-4 gap-3">
-      <div class="bg-white p-3 rounded-xl flex flex-col items-center shadow-sm border border-slate-100">
-        <span class="text-primary text-xs font-bold">Calorias</span>
-        <span class="text-lg font-extrabold">{{ macros.calories }}</span>
-        <span class="text-[10px] text-slate-500 uppercase">kcal</span>
-      </div>
-      <div class="bg-white p-3 rounded-xl flex flex-col items-center shadow-sm border border-slate-100">
-        <span class="text-primary text-xs font-bold">Proteina</span>
-        <span class="text-lg font-extrabold">{{ macros.protein }}g</span>
-        <span class="text-[10px] text-slate-500 uppercase">prot</span>
-      </div>
-      <div class="bg-white p-3 rounded-xl flex flex-col items-center shadow-sm border border-slate-100">
-        <span class="text-primary text-xs font-bold">HC</span>
-        <span class="text-lg font-extrabold">{{ macros.carbs }}g</span>
-        <span class="text-[10px] text-slate-500 uppercase">carbs</span>
-      </div>
-      <div class="bg-white p-3 rounded-xl flex flex-col items-center shadow-sm border border-slate-100">
-        <span class="text-primary text-xs font-bold">Grasas</span>
-        <span class="text-lg font-extrabold">{{ macros.fat }}g</span>
-        <span class="text-[10px] text-slate-500 uppercase">fat</span>
-      </div>
+      <MacroStatCard label="Calorias" :value="macros.calories" unit="kcal" />
+      <MacroStatCard label="Proteina" :value="macros.protein + 'g'" unit="prot" />
+      <MacroStatCard label="HC" :value="macros.carbs + 'g'" unit="carbs" />
+      <MacroStatCard label="Grasas" :value="macros.fat + 'g'" unit="fat" />
     </div>
   </div>
 </template>
