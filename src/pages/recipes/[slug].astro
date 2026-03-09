@@ -1,15 +1,15 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import MacroCalculator from '@/components/MacroCalculator.vue';
-import FavoriteButton from '@/components/FavoriteButton.vue';
-import PhotoUpload from '@/components/PhotoUpload.vue';
+import MacroCalculator from '@/components/recipe/MacroCalculator.vue';
+import FavoriteButton from '@/components/recipe/FavoriteButton.vue';
+import PhotoUpload from '@/components/recipe/PhotoUpload.vue';
 import IconArrowBack from '~icons/material-symbols/arrow-back';
 import IconLightbulb from '~icons/material-symbols/lightbulb-outline';
 import IconOpenInNew from '~icons/material-symbols/open-in-new';
-import MacroStatCard from '@/components/ui/MacroStatCard.vue';
+import MacroStatCard from '@/components/recipe/MacroStatCard.vue';
 import BaseBadge from '@/components/ui/BaseBadge.vue';
-import RecipeInstructions from '@/components/RecipeInstructions.astro';
-import RecipeIngredients from '@/components/RecipeIngredients.astro';
+import RecipeInstructions from '@/components/recipe/RecipeInstructions.astro';
+import RecipeIngredients from '@/components/recipe/RecipeIngredients.astro';
 import type { IngredientGroup } from '@db/schema';
 import { getRecipeBySlug } from '@/services/recipes';
 

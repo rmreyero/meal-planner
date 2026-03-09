@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import BaseCard from './ui/BaseCard.vue';
+import BaseCard from '@/components/ui/BaseCard.vue';
 
 interface Macros {
   calories: number;

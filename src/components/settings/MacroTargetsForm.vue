@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import BaseCard from './ui/BaseCard.vue';
-import SectionHeading from './ui/SectionHeading.vue';
-import Toast from './Toast.vue';
+import BaseCard from '@/components/ui/BaseCard.vue';
+import SectionHeading from '@/components/ui/SectionHeading.vue';
+import Toast from '@/components/ui/Toast.vue';
 import IconFitnessCenter from '~icons/material-symbols/fitness-center';
 import IconWeekend from '~icons/material-symbols/weekend-outline';
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-import BaseSearchInput from './ui/BaseSearchInput.vue';
+import BaseSearchInput from '@/components/ui/BaseSearchInput.vue';
 import IconClose from '~icons/material-symbols/close';
 
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import MacroStatCard from './ui/MacroStatCard.vue';
+import MacroStatCard from './MacroStatCard.vue';
 import IconRemove from '~icons/material-symbols/remove';
 import IconAdd from '~icons/material-symbols/add';
 

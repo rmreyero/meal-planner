@@ -4,7 +4,7 @@ import RecipeFilters from './RecipeFilters.vue';
 import IconFavorite from '~icons/material-symbols/favorite-rounded';
 import IconSchedule from '~icons/material-symbols/schedule-outline';
 import IconChevronRight from '~icons/material-symbols/chevron-right';
-import BaseBadge from './ui/BaseBadge.vue';
+import BaseBadge from '@/components/ui/BaseBadge.vue';
 
 interface Recipe {
   id: number;

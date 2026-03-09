@@ -4,7 +4,7 @@ import RecipePicker from './RecipePicker.vue';
 import DailyMacroSummary from './DailyMacroSummary.vue';
 import MealEntryCard from './MealEntryCard.vue';
 import DayTabs from './DayTabs.vue';
-import Toast from './Toast.vue';
+import Toast from '@/components/ui/Toast.vue';
 import IconChevronLeft from '~icons/material-symbols/chevron-left';
 import IconChevronRight from '~icons/material-symbols/chevron-right';
 import IconFitnessCenter from '~icons/material-symbols/fitness-center';

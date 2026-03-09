@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import BaseSearchInput from './ui/BaseSearchInput.vue';
+import BaseSearchInput from '@/components/ui/BaseSearchInput.vue';
 import IconSearch from '~icons/material-symbols/search';
 
 const props = defineProps<{
